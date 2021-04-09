@@ -128,3 +128,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 MNIST/data/mnist.pkl
+
+.vscode/settings.json
+myvenv/
+myenv/
+venv/
+venv38/
+.vscode/settings.json
