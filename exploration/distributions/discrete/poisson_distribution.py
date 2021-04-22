@@ -1,3 +1,10 @@
+"""
+This module displays graphs of the Poisson distribution
+The Poisson distribution takes a single parameter of mu (the average)
+It tells us the distribution of the number of events we would
+expect to see in a fixed interval of time or space.
+Note that the variance of this distribution is also (strangely) mu
+"""
 import scipy.stats as stats
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,3 +1,8 @@
+"""
+This module displays graphs of the Bernoulli Distribution
+The Bernoulli distribution only takes a paramter of mu (the average)
+It is for getting a distribution for a single trial with two outcomes
+"""
 import scipy.stats as stats
 import numpy as np
 import matplotlib.pyplot as plt
