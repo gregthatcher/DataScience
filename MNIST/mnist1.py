@@ -11,7 +11,7 @@ from keras.models import Sequential
 import numpy as np
 import matplotlib.pyplot as plt
 
-MODEL_PATH = "./models/minst1.model"
+MODEL_PATH = "./mnist/models/minst1.model"
 
 (train_X, train_y), (test_X, test_y) = mnist.load_data()
 #from mnist import MNIST
@@ -56,15 +56,22 @@ except OSError:
     model.save(MODEL_PATH)
 
 test_loss, test_acc = model.evaluate(test_X, test_Y_one_hot)
-print('Test loss', test_loss)
-print('Test accuracy', test_acc)
+
+num_rows = 2
+num_columns = 3
+fig, ax = plt.subplots(num_rows, num_columns, figsize=(10, 6.5))
 
 predictions = model.predict(test_X)
-final_prediction = np.argmax(np.round(predictions[0]))
-print(final_prediction)
 
+fig.suptitle(f"Test Loss {round(test_loss, 2)}; Test Accuracy {round(test_acc, 2)}")
+counter = 0
+for row in range(num_rows):
+    for column in range(num_columns):
+        final_prediction = np.argmax(np.round(predictions[counter]))
 
-plt.imshow(test_X[0], cmap=plt.get_cmap('gray'))
-plt.title(f"Model Predicted {final_prediction}")
+        ax[row][column].imshow(test_X[counter], cmap=plt.get_cmap('gray'))
+        ax[row][column].set_title(f"Model Predicted {final_prediction}")
+
+        counter += 1
 
 plt.show()
