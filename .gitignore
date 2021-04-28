@@ -136,3 +136,6 @@ venv/
 venv38/
 .vscode/settings.json
 .vscode/settings.json
+models/minst1.model/saved_model.pb
+models/minst1.model/variables/variables.data-00000-of-00001
+models/minst1.model/variables/variables.index
