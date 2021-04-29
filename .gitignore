@@ -139,3 +139,6 @@ venv38/
 models/minst1.model/saved_model.pb
 models/minst1.model/variables/variables.data-00000-of-00001
 models/minst1.model/variables/variables.index
+mnist/models/minst1.model/saved_model.pb
+mnist/models/minst1.model/variables/variables.data-00000-of-00001
+mnist/models/minst1.model/variables/variables.index

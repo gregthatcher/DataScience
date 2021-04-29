@@ -3,6 +3,8 @@ Experimenting with Mnist data set
 Ideas from:
 https://towardsdatascience.com/mnist-cnn-python-c61a5bce7a19
 '''
+
+from random import randint
 from keras.datasets import mnist
 import keras
 from keras.utils import to_categorical
@@ -51,26 +53,28 @@ except OSError:
     model.add(Activation('softmax'))
     model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),metrics=['accuracy'])
 
-    model.fit(train_X, train_Y_one_hot, batch_size=64, epochs=2)
-
+    model.fit(train_X, train_Y_one_hot, batch_size=64, epochs=10)
+    # Save the model, so we won't have to wait for training next time
     model.save(MODEL_PATH)
 
 test_loss, test_acc = model.evaluate(test_X, test_Y_one_hot)
 
 num_rows = 2
 num_columns = 3
-fig, ax = plt.subplots(num_rows, num_columns, figsize=(10, 6.5))
+fig, ax = plt.subplots(num_rows, num_columns, figsize=(10, 7))
 
 predictions = model.predict(test_X)
 
 fig.suptitle(f"Test Loss {round(test_loss, 2)}; Test Accuracy {round(test_acc, 2)}")
-counter = 0
+
+# Choose a random sequence of 6 digits to display
+counter = randint(0, test_X.shape[0]-6)
 for row in range(num_rows):
     for column in range(num_columns):
         final_prediction = np.argmax(np.round(predictions[counter]))
-
+        correct_value = np.argmax(np.round(test_Y_one_hot[counter]))
         ax[row][column].imshow(test_X[counter], cmap=plt.get_cmap('gray'))
-        ax[row][column].set_title(f"Model Predicted {final_prediction}")
+        ax[row][column].set_title(f"Model Predicted {final_prediction}\nActual {correct_value}")
 
         counter += 1
 
