@@ -51,7 +51,7 @@ except OSError:
     model.add(Dense(64))
     model.add(Dense(10))
     model.add(Activation('softmax'))
-    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),metrics=['accuracy'])
+    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
 
     model.fit(train_X, train_Y_one_hot, batch_size=64, epochs=10)
     # Save the model, so we won't have to wait for training next time
