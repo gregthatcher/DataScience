@@ -47,6 +47,8 @@ for column, (title, column_name) in enumerate(zip(titles, column_names)):
     ax[0][column].set_title(title)
     ax[0][column].axvline(iris[column_name].median(), color="g", label="median", linewidth=5)
     ax[0][column].axvline(iris[column_name].mean(), color="r", label="mean")
+    ax[0][column].axvline(iris[column_name].quantile(0.25), color="blue", label="Q1", linestyle="dotted")
+    ax[0][column].axvline(iris[column_name].quantile(0.75), color="blue", label="Q3", linestyle="dotted")
     modes = iris[column_name].mode()
     for m in modes:
         ax[0][column].axvline(m, color="y", label="mode", linestyle="--")
@@ -60,6 +62,8 @@ for row, species_name in enumerate(species_names, start=1):
         ax[row][column].set_title(f"{species_name.capitalize()}-{title}")
         ax[row][column].axvline(data[column_name].median(), color="g", label="median", linewidth=5)
         ax[row][column].axvline(data[column_name].mean(), color="r", label="mean")
+        ax[row][column].axvline(data[column_name].quantile(0.25), color="blue", label="Q1", linestyle="dotted")
+        ax[row][column].axvline(data[column_name].quantile(0.75), color="blue", label="Q3", linestyle="dotted")
         modes = data[column_name].mode()
         for m in modes:
             ax[row][column].axvline(m, color="y", label="mode", linestyle="--")
