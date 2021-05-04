@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from statsmodels.graphics.gofplots import qqplot
 
-fig, ax = plt.subplots(2, 3, figsize=(12,10))
+fig, ax = plt.subplots(2, 3, figsize=(12, 10))
 
-mu, sigma = 0, 0.1 # mean and standard deviation
+mu, sigma = 0, 0.1  # mean and standard deviation
 data_size = 1000
 normal_data = np.random.normal(mu, sigma, data_size)
 uniform_data = np.random.uniform(size=data_size)
