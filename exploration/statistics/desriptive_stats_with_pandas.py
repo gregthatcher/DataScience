@@ -29,6 +29,10 @@ def print_descriptive_stats(iris):
     print(iris.max())
     print("\nMeans:")
     print(iris.mean())
+    print("\nVariances:")
+    print(iris.var())
+    print("\nStandard Deviations:")
+    print(iris.std())
 
     print("\nRanges:")
     print("Sepal Length:", round(max(iris[SEPAL_LENGTH]) - min(iris[SEPAL_LENGTH]), 2))
@@ -41,6 +45,10 @@ def print_descriptive_stats(iris):
     print("Sepal Width:", round(iris[SEPAL_WIDTH].quantile(0.75) - iris[SEPAL_WIDTH].quantile(0.25), 2))
     print("Petal Length:", round(iris[PETAL_LENGTH].quantile(0.75) - iris[PETAL_LENGTH].quantile(0.25), 2))
     print("Petal Width:", round(iris[PETAL_WIDTH].quantile(0.75) - iris[PETAL_WIDTH].quantile(0.25), 2))
+
+    print(iris.describe())
+
+
 
 def show_iris_histograms(iris, species_names, titles, column_names):
 
@@ -114,7 +122,7 @@ titles = ["Sepal Length", "Sepal Width", "Petal Length", "Petal Width"]
 column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 
 
-#show_iris_histograms(iris, species_names, titles, column_names)
+show_iris_histograms(iris, species_names, titles, column_names)
 show_iris_scatter_plots(iris, species_names, titles, column_names)
 
-#print_descriptive_stats(iris)
+print_descriptive_stats(iris)
