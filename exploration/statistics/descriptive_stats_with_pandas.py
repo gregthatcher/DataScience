@@ -13,7 +13,7 @@ PETAL_LENGTH = "petal_length"
 PETAL_WIDTH = "petal_width"
 
 
-def print_descriptive_stats(iris):
+def print_descriptive_stats(iris, species):
     print(type(iris))
 
     print(pd.__version__)
@@ -56,7 +56,12 @@ def print_descriptive_stats(iris):
     print("Petal Width:", round(iris[PETAL_WIDTH].quantile(
         0.75) - iris[PETAL_WIDTH].quantile(0.25), 2))
 
+    print("\nStats on All Data")
     print(iris.describe())
+
+    for specie in species:
+        print(f"\nStats on {specie.capitalize()}")
+        print(iris[iris.species == specie].describe())
 
 
 def display_iris_histograms(iris, species_names, titles, column_names):
@@ -105,8 +110,8 @@ def display_iris_histograms(iris, species_names, titles, column_names):
     plt.show()
 
 
-def display_one_iris_scatter(
-        iris, species_names, titles, column_names, main_title):
+def display_scatter_combinations(
+        iris, titles, column_names, main_title):
     combinations = list(itertools.combinations(zip(titles, column_names), 2))
     fig, ax = plt.subplots(2, 3, figsize=(14, 8))
 
@@ -137,11 +142,11 @@ def display_one_iris_scatter(
 
 def display_iris_scatter_plots(iris, species_names, titles, column_names):
     # Show scatter plots between every dimension, no filtering
-    display_one_iris_scatter(iris, species_names, titles,
+    display_scatter_combinations(iris, titles,
                           column_names, "All Data")
     for species_name in species_names:
         data = iris[iris["species"] == species_name]
-        display_one_iris_scatter(data, species_names, titles,
+        display_scatter_combinations(data, titles,
                               column_names, f"{species_name.capitalize()} Data")
 
 
@@ -162,4 +167,4 @@ display_count_plot(iris["species"], "Counts by Species")
 display_iris_histograms(iris, species_names, titles, column_names)
 display_iris_scatter_plots(iris, species_names, titles, column_names)
 
-print_descriptive_stats(iris)
+print_descriptive_stats(iris, species_names)
