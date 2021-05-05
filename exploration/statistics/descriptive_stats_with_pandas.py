@@ -64,45 +64,37 @@ def print_descriptive_stats(iris, species):
         print(iris[iris.species == specie].describe())
 
 
+def display_one_histogram(ax, iris, column_name, title):
+    ax.hist(iris[column_name])
+    ax.set_title(title)
+    ax.axvline(iris[column_name].median(),
+               color="g", label="median", linewidth=5)
+    ax.axvline(iris[column_name].mean(),
+               color="r", label="mean")
+    ax.axvline(iris[column_name].quantile(
+        0.25), color="blue", label="Q1", linestyle="dotted")
+    ax.axvline(iris[column_name].quantile(
+        0.75), color="blue", label="Q3", linestyle="dotted")
+    modes = iris[column_name].mode()
+    for m in modes:
+        ax.axvline(m, color="y", label="mode", linestyle="--")
+    ax.legend()
+
+
 def display_iris_histograms(iris, species_names, titles, column_names):
 
     fig, ax = plt.subplots(1+len(species_names), len(titles), figsize=(14, 10))
 
     # Show histograms of each column
     for column, (title, column_name) in enumerate(zip(titles, column_names)):
-        ax[0][column].hist(iris[column_name])
-        ax[0][column].set_title(title)
-        ax[0][column].axvline(iris[column_name].median(),
-                              color="g", label="median", linewidth=5)
-        ax[0][column].axvline(iris[column_name].mean(),
-                              color="r", label="mean")
-        ax[0][column].axvline(iris[column_name].quantile(
-            0.25), color="blue", label="Q1", linestyle="dotted")
-        ax[0][column].axvline(iris[column_name].quantile(
-            0.75), color="blue", label="Q3", linestyle="dotted")
-        modes = iris[column_name].mode()
-        for m in modes:
-            ax[0][column].axvline(m, color="y", label="mode", linestyle="--")
-        ax[0][column].legend()
+        display_one_histogram(ax[0][column], iris, column_name, title)
 
     for row, species_name in enumerate(species_names, start=1):
         # Show histograms of each column for each species_name (e.g. "setosa")
         for column, (title, column_name) in enumerate(zip(titles, column_names)):
             data = iris[iris["species"] == species_name]
-            ax[row][column].hist(data[column_name])
-            ax[row][column].set_title(f"{species_name.capitalize()}-{title}")
-            ax[row][column].axvline(
-                data[column_name].median(), color="g", label="median", linewidth=5)
-            ax[row][column].axvline(
-                data[column_name].mean(), color="r", label="mean")
-            ax[row][column].axvline(data[column_name].quantile(
-                0.25), color="blue", label="Q1", linestyle="dotted")
-            ax[row][column].axvline(data[column_name].quantile(
-                0.75), color="blue", label="Q3", linestyle="dotted")
-            modes = data[column_name].mode()
-            for m in modes:
-                ax[row][column].axvline(
-                    m, color="y", label="mode", linestyle="--")
+            display_one_histogram(
+                ax[row][column], data, column_name, f"{species_name.capitalize()}-{title}")
 
             ax[row][column].legend()
 
@@ -143,11 +135,11 @@ def display_scatter_combinations(
 def display_iris_scatter_plots(iris, species_names, titles, column_names):
     # Show scatter plots between every dimension, no filtering
     display_scatter_combinations(iris, titles,
-                          column_names, "All Data")
+                                 column_names, "All Data")
     for species_name in species_names:
         data = iris[iris["species"] == species_name]
         display_scatter_combinations(data, titles,
-                              column_names, f"{species_name.capitalize()} Data")
+                                     column_names, f"{species_name.capitalize()} Data")
 
 
 def display_count_plot(data, title):
