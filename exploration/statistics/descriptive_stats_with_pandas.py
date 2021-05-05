@@ -59,7 +59,7 @@ def print_descriptive_stats(iris):
     print(iris.describe())
 
 
-def show_iris_histograms(iris, species_names, titles, column_names):
+def display_iris_histograms(iris, species_names, titles, column_names):
 
     fig, ax = plt.subplots(1+len(species_names), len(titles), figsize=(14, 10))
 
@@ -105,7 +105,7 @@ def show_iris_histograms(iris, species_names, titles, column_names):
     plt.show()
 
 
-def show_one_iris_scatter(
+def display_one_iris_scatter(
         iris, species_names, titles, column_names, main_title):
     combinations = list(itertools.combinations(zip(titles, column_names), 2))
     fig, ax = plt.subplots(2, 3, figsize=(14, 8))
@@ -135,14 +135,20 @@ def show_one_iris_scatter(
     plt.show()
 
 
-def show_iris_scatter_plots(iris, species_names, titles, column_names):
+def display_iris_scatter_plots(iris, species_names, titles, column_names):
     # Show scatter plots between every dimension, no filtering
-    show_one_iris_scatter(iris, species_names, titles,
+    display_one_iris_scatter(iris, species_names, titles,
                           column_names, "All Data")
     for species_name in species_names:
         data = iris[iris["species"] == species_name]
-        show_one_iris_scatter(data, species_names, titles,
+        display_one_iris_scatter(data, species_names, titles,
                               column_names, f"{species_name.capitalize()} Data")
+
+
+def display_count_plot(data, title):
+    sns.countplot(data)
+    plt.title(title)
+    plt.show()
 
 
 iris = sns.load_dataset('iris')
@@ -151,11 +157,9 @@ species_names = ["setosa", "virginica", "versicolor"]
 titles = ["Sepal Length", "Sepal Width", "Petal Length", "Petal Width"]
 column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 
-sns.countplot(iris["species"])
-plt.title("Counts by Species")
-plt.show()
+display_count_plot(iris["species"], "Counts by Species")
 
-show_iris_histograms(iris, species_names, titles, column_names)
-show_iris_scatter_plots(iris, species_names, titles, column_names)
+display_iris_histograms(iris, species_names, titles, column_names)
+display_iris_scatter_plots(iris, species_names, titles, column_names)
 
 print_descriptive_stats(iris)
