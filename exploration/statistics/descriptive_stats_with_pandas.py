@@ -5,6 +5,7 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 import itertools
+import seaborn as sns
 
 SEPAL_LENGTH = "sepal_length"
 SEPAL_WIDTH = "sepal_width"
@@ -104,7 +105,8 @@ def show_iris_histograms(iris, species_names, titles, column_names):
     plt.show()
 
 
-def show_one_iris_scatter(iris, species_names, titles, column_names, main_title):
+def show_one_iris_scatter(
+        iris, species_names, titles, column_names, main_title):
     combinations = list(itertools.combinations(zip(titles, column_names), 2))
     fig, ax = plt.subplots(2, 3, figsize=(14, 8))
 
@@ -149,6 +151,9 @@ species_names = ["setosa", "virginica", "versicolor"]
 titles = ["Sepal Length", "Sepal Width", "Petal Length", "Petal Width"]
 column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 
+sns.countplot(iris["species"])
+plt.title("Counts by Species")
+plt.show()
 
 show_iris_histograms(iris, species_names, titles, column_names)
 show_iris_scatter_plots(iris, species_names, titles, column_names)
