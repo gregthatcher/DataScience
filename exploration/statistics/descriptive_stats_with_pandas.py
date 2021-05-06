@@ -16,13 +16,16 @@ PETAL_WIDTH = "petal_width"
 def print_descriptive_stats(iris, species):
     print(type(iris))
 
-    print(pd.__version__)
+    
+    print("Pandas Version: ", pd.__version__)
 
+    print("\nShape of DataFrame:", iris.shape)
+    print("\nFirst Few Rows:")
     print(iris.head())
+    print("\nNull Counts:")
     print(iris.isnull().sum())
 
-    print(iris.isnull().head())
-
+    print("\nValue Counts:")
     print(iris.species.value_counts())
 
     print("\nMinimums:")
@@ -154,9 +157,9 @@ species_names = ["setosa", "virginica", "versicolor"]
 titles = ["Sepal Length", "Sepal Width", "Petal Length", "Petal Width"]
 column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 
-display_count_plot(iris["species"], "Counts by Species")
+#display_count_plot(iris["species"], "Counts by Species")
 
-display_iris_histograms(iris, species_names, titles, column_names)
-display_iris_scatter_plots(iris, species_names, titles, column_names)
+#display_iris_histograms(iris, species_names, titles, column_names)
+#display_iris_scatter_plots(iris, species_names, titles, column_names)
 
 print_descriptive_stats(iris, species_names)
