@@ -132,8 +132,11 @@ def display_scatter_combinations(
         column = index % 3
         ax[row][column].set_title(
             f"{combination[0][0]} vs {combination[1][0]}")
-        ax[row][column].scatter(iris[combination[1][1]],
-                                iris[combination[0][1]])
+        # ax[row][column].scatter(iris[combination[1][1]],
+        #                        iris[combination[0][1]])
+        sns.scatterplot(x=iris[combination[1][1]],
+                        y=iris[combination[0][1]], hue="species",
+                        ax=ax[row][column], data=iris)
 
         ax[row][column].axvline(iris[combination[1][1]].quantile(
             0.25), color="r", label=f"Q1 {combination[1][0]}")
@@ -159,7 +162,8 @@ def display_iris_scatter_plots(iris, species_names, titles, column_names):
     for species_name in species_names:
         data = iris[iris["species"] == species_name]
         display_scatter_combinations(data, titles,
-                                     column_names, f"{species_name.capitalize()} Data")
+                                     column_names, 
+                                     f"{species_name.capitalize()} Data")
 
 
 iris = sns.load_dataset('iris')
