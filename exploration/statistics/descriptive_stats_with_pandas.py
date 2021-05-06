@@ -94,7 +94,14 @@ def display_one_boxplot(ax, iris, column_name, title):
     ax.set_title(title)
 
 
-def display_all_graphs(iris, species_names, titles, column_names, graph_function, show_legend):
+def display_one_kdeplot(ax, iris, column_name, title):
+    sns.kdeplot(data=iris, x=column_name, ax=ax)
+    ax.set_title(title)
+
+
+def display_all_graphs(
+        iris, species_names, titles, column_names,
+        graph_function, show_legend):
 
     fig, ax = plt.subplots(1+len(species_names), len(titles), figsize=(14, 10))
 
@@ -164,11 +171,14 @@ column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 display_count_plot(iris["species"], "Counts by Species")
 
 display_all_graphs(
-    iris, species_names, titles, column_names, display_one_histogram, True)
-
-display_iris_scatter_plots(iris, species_names, titles, column_names)
+    iris, species_names, titles, column_names, display_one_kdeplot, False)
 
 display_all_graphs(
     iris, species_names, titles, column_names, display_one_boxplot, False)
+
+display_all_graphs(
+    iris, species_names, titles, column_names, display_one_histogram, True)
+
+display_iris_scatter_plots(iris, species_names, titles, column_names)
 
 print_descriptive_stats(iris, species_names)
