@@ -14,9 +14,8 @@ PETAL_WIDTH = "petal_width"
 
 
 def print_descriptive_stats(iris, species):
-    print(type(iris))
+    print("Type: ", type(iris))
 
-    
     print("Pandas Version: ", pd.__version__)
 
     print("\nShape of DataFrame:", iris.shape)
@@ -84,22 +83,33 @@ def display_one_histogram(ax, iris, column_name, title):
     ax.legend()
 
 
-def display_iris_histograms(iris, species_names, titles, column_names):
+def display_count_plot(data, title):
+    sns.countplot(data)
+    plt.title(title)
+    plt.show()
+
+
+def display_one_boxplot(ax, iris, column_name, title):
+    ax.boxplot(iris[column_name])
+    ax.set_title(title)
+
+
+def display_all_graphs(iris, species_names, titles, column_names, graph_function, show_legend):
 
     fig, ax = plt.subplots(1+len(species_names), len(titles), figsize=(14, 10))
 
     # Show histograms of each column
     for column, (title, column_name) in enumerate(zip(titles, column_names)):
-        display_one_histogram(ax[0][column], iris, column_name, title)
+        graph_function(ax[0][column], iris, column_name, title)
 
     for row, species_name in enumerate(species_names, start=1):
         # Show histograms of each column for each species_name (e.g. "setosa")
         for column, (title, column_name) in enumerate(zip(titles, column_names)):
             data = iris[iris["species"] == species_name]
-            display_one_histogram(
+            graph_function(
                 ax[row][column], data, column_name, f"{species_name.capitalize()}-{title}")
-
-            ax[row][column].legend()
+            if show_legend:
+                ax[row][column].legend()
 
     fig.tight_layout()
     plt.show()
@@ -145,21 +155,20 @@ def display_iris_scatter_plots(iris, species_names, titles, column_names):
                                      column_names, f"{species_name.capitalize()} Data")
 
 
-def display_count_plot(data, title):
-    sns.countplot(data)
-    plt.title(title)
-    plt.show()
-
-
 iris = sns.load_dataset('iris')
 
 species_names = ["setosa", "virginica", "versicolor"]
 titles = ["Sepal Length", "Sepal Width", "Petal Length", "Petal Width"]
 column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 
-#display_count_plot(iris["species"], "Counts by Species")
+display_count_plot(iris["species"], "Counts by Species")
 
-#display_iris_histograms(iris, species_names, titles, column_names)
-#display_iris_scatter_plots(iris, species_names, titles, column_names)
+display_all_graphs(
+    iris, species_names, titles, column_names, display_one_histogram, True)
+
+display_iris_scatter_plots(iris, species_names, titles, column_names)
+
+display_all_graphs(
+    iris, species_names, titles, column_names, display_one_boxplot, False)
 
 print_descriptive_stats(iris, species_names)
