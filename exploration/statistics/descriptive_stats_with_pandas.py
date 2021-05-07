@@ -5,7 +5,6 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 import itertools
-import seaborn as sns
 
 SEPAL_LENGTH = "sepal_length"
 SEPAL_WIDTH = "sepal_width"
@@ -64,6 +63,12 @@ def print_descriptive_stats(iris, species):
     for specie in species:
         print(f"\nStats on {specie.capitalize()}")
         print(iris[iris.species == specie].describe())
+
+    print("Group By Species")
+    species_groupby = iris.groupby("species", as_index=False)
+    print(species_groupby.head())
+    print("Group By Summary Stats (transposed)")
+    print(species_groupby.describe().T)
 
 
 def display_one_histogram(ax, iris, column_name, title):
@@ -162,7 +167,7 @@ def display_iris_scatter_plots(iris, species_names, titles, column_names):
     for species_name in species_names:
         data = iris[iris["species"] == species_name]
         display_scatter_combinations(data, titles,
-                                     column_names, 
+                                     column_names,
                                      f"{species_name.capitalize()} Data")
 
 
@@ -175,13 +180,13 @@ column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 display_count_plot(iris["species"], "Counts by Species")
 
 display_all_graphs(
-    iris, species_names, titles, column_names, display_one_kdeplot, False)
+   iris, species_names, titles, column_names, display_one_kdeplot, False)
 
 display_all_graphs(
-    iris, species_names, titles, column_names, display_one_boxplot, False)
+   iris, species_names, titles, column_names, display_one_boxplot, False)
 
 display_all_graphs(
-    iris, species_names, titles, column_names, display_one_histogram, True)
+   iris, species_names, titles, column_names, display_one_histogram, True)
 
 display_iris_scatter_plots(iris, species_names, titles, column_names)
 
