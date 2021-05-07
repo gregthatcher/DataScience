@@ -1,9 +1,10 @@
 '''
 This module contains routines for doing descriptive statistics (not inferential) using pandas dataframes
 '''
-import seaborn as sns
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 import itertools
 
 SEPAL_LENGTH = "sepal_length"
@@ -18,6 +19,8 @@ def print_descriptive_stats(iris, species):
     print("Pandas Version: ", pd.__version__)
 
     print("\nShape of DataFrame:", iris.shape)
+    print("\nData Types:")
+    print(iris.dtypes)
     print("\nFirst Few Rows:")
     print(iris.head())
     print("\nNull Counts:")
@@ -71,12 +74,18 @@ def print_descriptive_stats(iris, species):
     print(species_groupby.describe().T)
 
     print("\nSkewness:")
-    print("\n(Measure of Asymetry; Normal Distribution has skew of 0)")
+    print("(Measure of Asymetry; Normal Distribution has skew of 0)")
     print(iris.skew())
 
     print("\nKurtosis:")
     print("(How likely are extreme events?  Normal Distribution has kurtosis of 3)")
     print(iris.kurtosis())
+
+    print("\nCovariances:")
+    print(iris.cov())
+
+    print("\nCorrelations:")
+    print(iris.corr())
 
 
 def display_one_histogram(ax, iris, column_name, title):
@@ -168,6 +177,17 @@ def display_scatter_combinations(
     plt.show()
 
 
+def display_correlations(data):
+    plt.figure(figsize=(12, 8))
+    corr = data.corr()
+    # TODO: What does this code mean?
+    # Only show "triangle"
+    mask = np.triu(np.ones_like(corr, dtype=bool))
+    sns.heatmap(corr, annot=True, cmap="YlOrBr", mask=mask)
+    plt.title("Correlations")
+    plt.show()
+
+
 def display_iris_scatter_plots(iris, species_names, titles, column_names):
     # Show scatter plots between every dimension, no filtering
     display_scatter_combinations(iris, titles,
@@ -186,26 +206,27 @@ titles = ["Sepal Length", "Sepal Width", "Petal Length", "Petal Width"]
 column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 
 print_descriptive_stats(iris, species_names)
-raise Exception("Stop!")
 
 # TODO: Research this, and fix
 # This should show two "kde" plots, colored by species, on the same plot
-#sns.FacetGrid(iris, hue="species", height=5)\
+# sns.FacetGrid(iris, hue="species", height=5)\
 #    .map(sns.displot, 'sepal_width')\
 #    .add_legend()
-#plt.show()
+# plt.show()
 
 display_count_plot(iris["species"], "Counts by Species")
 
 display_all_graphs(
-    iris, species_names, titles, column_names, display_one_kdeplot, False)
-
-display_all_graphs(
     iris, species_names, titles, column_names, display_one_boxplot, False)
 
+# KDE is better for showing the shape (compared to Histograms)
+display_all_graphs(
+    iris, species_names, titles, column_names, display_one_kdeplot, False)
+
+# But, Histograms are better for viewing outliers
 display_all_graphs(
     iris, species_names, titles, column_names, display_one_histogram, True)
 
+display_correlations(iris)
+
 display_iris_scatter_plots(iris, species_names, titles, column_names)
-
-
