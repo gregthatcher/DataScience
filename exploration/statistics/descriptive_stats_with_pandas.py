@@ -64,11 +64,19 @@ def print_descriptive_stats(iris, species):
         print(f"\nStats on {specie.capitalize()}")
         print(iris[iris.species == specie].describe())
 
-    print("Group By Species")
+    print("\nGroup By Species")
     species_groupby = iris.groupby("species", as_index=False)
     print(species_groupby.head())
-    print("Group By Summary Stats (transposed)")
+    print("\nGroup By Summary Stats (transposed)")
     print(species_groupby.describe().T)
+
+    print("\nSkewness:")
+    print("\n(Measure of Asymetry; Normal Distribution has skew of 0)")
+    print(iris.skew())
+
+    print("\nKurtosis:")
+    print("(How likely are extreme events?  Normal Distribution has kurtosis of 3)")
+    print(iris.kurtosis())
 
 
 def display_one_histogram(ax, iris, column_name, title):
@@ -177,17 +185,27 @@ species_names = ["setosa", "virginica", "versicolor"]
 titles = ["Sepal Length", "Sepal Width", "Petal Length", "Petal Width"]
 column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 
+print_descriptive_stats(iris, species_names)
+raise Exception("Stop!")
+
+# TODO: Research this, and fix
+# This should show two "kde" plots, colored by species, on the same plot
+#sns.FacetGrid(iris, hue="species", height=5)\
+#    .map(sns.displot, 'sepal_width')\
+#    .add_legend()
+#plt.show()
+
 display_count_plot(iris["species"], "Counts by Species")
 
 display_all_graphs(
-   iris, species_names, titles, column_names, display_one_kdeplot, False)
+    iris, species_names, titles, column_names, display_one_kdeplot, False)
 
 display_all_graphs(
-   iris, species_names, titles, column_names, display_one_boxplot, False)
+    iris, species_names, titles, column_names, display_one_boxplot, False)
 
 display_all_graphs(
-   iris, species_names, titles, column_names, display_one_histogram, True)
+    iris, species_names, titles, column_names, display_one_histogram, True)
 
 display_iris_scatter_plots(iris, species_names, titles, column_names)
 
-print_descriptive_stats(iris, species_names)
+
