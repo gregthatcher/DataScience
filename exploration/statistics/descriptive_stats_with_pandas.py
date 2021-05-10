@@ -11,6 +11,7 @@ SEPAL_LENGTH = "sepal_length"
 SEPAL_WIDTH = "sepal_width"
 PETAL_LENGTH = "petal_length"
 PETAL_WIDTH = "petal_width"
+SPECIES="species"
 
 
 def print_descriptive_stats(iris, species):
@@ -121,6 +122,16 @@ def display_one_kdeplot(ax, iris, column_name, title):
     ax.set_title(title)
 
 
+def display_bivariate_boxplots(iris, species_names, titles, column_names):
+    fig, ax = plt.subplots(len(column_names), 1, figsize=(14, 10))
+    for column, (title, column_name) in enumerate(zip(titles, column_names)):
+        sns.boxplot(x=SPECIES, y=column_name, data=iris, ax=ax[column])
+        ax[column].set_title(title)
+
+    fig.tight_layout()
+    plt.show()
+
+
 def display_all_graphs(
         iris, species_names, titles, column_names,
         graph_function, show_legend):
@@ -134,7 +145,7 @@ def display_all_graphs(
     for row, species_name in enumerate(species_names, start=1):
         # Show histograms of each column for each species_name (e.g. "setosa")
         for column, (title, column_name) in enumerate(zip(titles, column_names)):
-            data = iris[iris["species"] == species_name]
+            data = iris[iris[SPECIES] == species_name]
             graph_function(
                 ax[row][column], data, column_name, f"{species_name.capitalize()}-{title}")
             if show_legend:
@@ -157,7 +168,7 @@ def display_scatter_combinations(
         # ax[row][column].scatter(iris[combination[1][1]],
         #                        iris[combination[0][1]])
         sns.scatterplot(x=iris[combination[1][1]],
-                        y=iris[combination[0][1]], hue="species",
+                        y=iris[combination[0][1]], hue=SPECIES,
                         ax=ax[row][column], data=iris)
 
         ax[row][column].axvline(iris[combination[1][1]].quantile(
@@ -193,7 +204,7 @@ def display_iris_scatter_plots(iris, species_names, titles, column_names):
     display_scatter_combinations(iris, titles,
                                  column_names, "All Data")
     for species_name in species_names:
-        data = iris[iris["species"] == species_name]
+        data = iris[iris[SPECIES] == species_name]
         display_scatter_combinations(data, titles,
                                      column_names,
                                      f"{species_name.capitalize()} Data")
@@ -214,10 +225,12 @@ print_descriptive_stats(iris, species_names)
 #    .add_legend()
 # plt.show()
 
-display_count_plot(iris["species"], "Counts by Species")
+display_count_plot(iris[SPECIES], "Counts by Species")
 
 display_all_graphs(
     iris, species_names, titles, column_names, display_one_boxplot, False)
+
+display_bivariate_boxplots(iris, species_names, titles, column_names)
 
 # KDE is better for showing the shape (compared to Histograms)
 display_all_graphs(
