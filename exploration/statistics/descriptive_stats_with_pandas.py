@@ -11,7 +11,13 @@ SEPAL_LENGTH = "sepal_length"
 SEPAL_WIDTH = "sepal_width"
 PETAL_LENGTH = "petal_length"
 PETAL_WIDTH = "petal_width"
-SPECIES="species"
+SPECIES = "species"
+
+
+def print_column_stats_by_species(iris, column):
+    print("\n")
+    print(column.capitalize().replace("_", " "))
+    print(iris.groupby([SPECIES])[column].agg(['count', 'mean', 'std']))
 
 
 def print_descriptive_stats(iris, species):
@@ -88,6 +94,11 @@ def print_descriptive_stats(iris, species):
     print("\nCorrelations:")
     print(iris.corr())
 
+    print_column_stats_by_species(iris, PETAL_WIDTH)
+    print_column_stats_by_species(iris, PETAL_LENGTH)
+    print_column_stats_by_species(iris, SEPAL_WIDTH)
+    print_column_stats_by_species(iris, SEPAL_LENGTH)
+
 
 def display_one_histogram(ax, iris, column_name, title):
     ax.hist(iris[column_name])
@@ -126,6 +137,19 @@ def display_bivariate_boxplots(iris, species_names, titles, column_names):
     fig, ax = plt.subplots(len(column_names), 1, figsize=(14, 10))
     for column, (title, column_name) in enumerate(zip(titles, column_names)):
         sns.boxplot(x=SPECIES, y=column_name, data=iris, ax=ax[column])
+        ax[column].set_title(title)
+
+    fig.tight_layout()
+    plt.show()
+
+
+def display_bivariate_violin_and_swarm_plots(
+        iris, species_names, titles, column_names):
+    fig, ax = plt.subplots(len(column_names), 1, figsize=(14, 10))
+    for column, (title, column_name) in enumerate(zip(titles, column_names)):
+        sns.violinplot(x=SPECIES, y=column_name, data=iris, ax=ax[column])
+        sns.swarmplot(x=SPECIES, y=column_name,
+                      data=iris, ax=ax[column], color="w")
         ax[column].set_title(title)
 
     fig.tight_layout()
@@ -231,6 +255,7 @@ display_all_graphs(
     iris, species_names, titles, column_names, display_one_boxplot, False)
 
 display_bivariate_boxplots(iris, species_names, titles, column_names)
+display_bivariate_violin_and_swarm_plots(iris, species_names, titles, column_names)
 
 # KDE is better for showing the shape (compared to Histograms)
 display_all_graphs(
