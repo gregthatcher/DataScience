@@ -1,6 +1,7 @@
 '''
 This module contains routines for doing descriptive statistics (not inferential) using pandas dataframes
 '''
+import math
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,11 +14,29 @@ PETAL_LENGTH = "petal_length"
 PETAL_WIDTH = "petal_width"
 SPECIES = "species"
 
+Z_VALUE_FOR_95_PERCENT_CONFIDENCE = 1.96
+
 
 def print_column_stats_by_species(iris, column):
-    print("\n")
+    print("\nGrouped by Species Stats")
     print(column.capitalize().replace("_", " "))
-    print(iris.groupby([SPECIES])[column].agg(['count', 'mean', 'std']))
+    grouped_data = iris.groupby([SPECIES])[column].agg([
+        'count', 'mean', 'std'])
+    confidence_interval_95_high = []
+    confidence_interval_95_low = []
+    for i in grouped_data.index:
+        count, mean, std = grouped_data.loc[i]
+        # 1.96 is Z value for 95% confidence
+        confidence_interval_95_high.append(
+            mean + Z_VALUE_FOR_95_PERCENT_CONFIDENCE * (std/math.sqrt(count)))
+        confidence_interval_95_low.append(
+            mean - Z_VALUE_FOR_95_PERCENT_CONFIDENCE * (std/math.sqrt(count)))
+
+    grouped_data["ci95_Low"] = confidence_interval_95_low
+    grouped_data["ci95_High"] = confidence_interval_95_high
+
+    print("(Remember that Confidence is higher with more data and less std)")
+    print(grouped_data)
 
 
 def print_descriptive_stats(iris, species):
@@ -242,6 +261,7 @@ column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 
 print_descriptive_stats(iris, species_names)
 
+raise Exception("Stop")
 # TODO: Research this, and fix
 # This should show two "kde" plots, colored by species, on the same plot
 # sns.FacetGrid(iris, hue="species", height=5)\
@@ -255,7 +275,8 @@ display_all_graphs(
     iris, species_names, titles, column_names, display_one_boxplot, False)
 
 display_bivariate_boxplots(iris, species_names, titles, column_names)
-display_bivariate_violin_and_swarm_plots(iris, species_names, titles, column_names)
+display_bivariate_violin_and_swarm_plots(
+    iris, species_names, titles, column_names)
 
 # KDE is better for showing the shape (compared to Histograms)
 display_all_graphs(
