@@ -15,13 +15,15 @@ PETAL_WIDTH = "petal_width"
 SPECIES = "species"
 
 Z_VALUE_FOR_95_PERCENT_CONFIDENCE = 1.96
+CI95_LOW = "ci95_Low"
+CI95_HIGH = "ci95_High"
+MEAN = "mean"
+STD = "std"
+COUNT = "count"
 
-
-def print_column_stats_by_species(iris, column):
-    print("\nGrouped by Species Stats")
-    print(column.capitalize().replace("_", " "))
+def get_column_stats_by_species(iris, column):
     grouped_data = iris.groupby([SPECIES])[column].agg([
-        'count', 'mean', 'std'])
+        COUNT, MEAN, STD])
     confidence_interval_95_high = []
     confidence_interval_95_low = []
     for i in grouped_data.index:
@@ -32,8 +34,16 @@ def print_column_stats_by_species(iris, column):
         confidence_interval_95_low.append(
             mean - Z_VALUE_FOR_95_PERCENT_CONFIDENCE * (std/math.sqrt(count)))
 
-    grouped_data["ci95_Low"] = confidence_interval_95_low
-    grouped_data["ci95_High"] = confidence_interval_95_high
+    grouped_data[CI95_LOW] = confidence_interval_95_low
+    grouped_data[CI95_HIGH] = confidence_interval_95_high
+
+    return grouped_data
+
+
+def print_column_stats_by_species(iris, column):
+    print("\nGrouped by Species Stats")
+    print(column.capitalize().replace("_", " "))
+    grouped_data = get_column_stats_by_species(iris, column)
 
     print("(Remember that Confidence is higher with more data and less std)")
     print(grouped_data)
@@ -150,6 +160,15 @@ def display_one_boxplot(ax, iris, column_name, title):
 def display_one_kdeplot(ax, iris, column_name, title):
     sns.kdeplot(data=iris, x=column_name, ax=ax)
     ax.set_title(title)
+    grouped_data = get_column_stats_by_species(iris, column_name)
+    print(grouped_data)
+    # TODO: Set better height (not 0.07)
+    ax.stem([grouped_data.iloc[0][MEAN]], [0.1], linefmt="C1",
+            markerfmt="C1", label=MEAN)
+    ax.stem([grouped_data.iloc[0][CI95_LOW]], [0.1], linefmt="C2",
+            markerfmt="C2", label=CI95_LOW)
+    ax.stem([grouped_data.iloc[0][CI95_HIGH]], [0.1], linefmt="C3",
+            markerfmt="C3", label=CI95_HIGH)
 
 
 def display_bivariate_boxplots(iris, species_names, titles, column_names):
@@ -261,7 +280,6 @@ column_names = [SEPAL_LENGTH, SEPAL_WIDTH, PETAL_LENGTH, PETAL_WIDTH]
 
 print_descriptive_stats(iris, species_names)
 
-raise Exception("Stop")
 # TODO: Research this, and fix
 # This should show two "kde" plots, colored by species, on the same plot
 # sns.FacetGrid(iris, hue="species", height=5)\
@@ -280,7 +298,7 @@ display_bivariate_violin_and_swarm_plots(
 
 # KDE is better for showing the shape (compared to Histograms)
 display_all_graphs(
-    iris, species_names, titles, column_names, display_one_kdeplot, False)
+    iris, species_names, titles, column_names, display_one_kdeplot, True)
 
 # But, Histograms are better for viewing outliers
 display_all_graphs(
