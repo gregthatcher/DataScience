@@ -7,6 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import itertools
+import scipy.stats as stats
 
 SEPAL_LENGTH = "sepal_length"
 SEPAL_WIDTH = "sepal_width"
@@ -20,6 +21,7 @@ CI95_HIGH = "ci95_High"
 MEAN = "mean"
 STD = "std"
 COUNT = "count"
+
 
 def get_column_stats_by_species(iris, column):
     grouped_data = iris.groupby([SPECIES])[column].agg([
@@ -161,7 +163,7 @@ def display_one_kdeplot(ax, iris, column_name, title):
     sns.kdeplot(data=iris, x=column_name, ax=ax)
     ax.set_title(title)
     grouped_data = get_column_stats_by_species(iris, column_name)
-    print(grouped_data)
+    # print(grouped_data)
     # TODO: Set better height (not 0.07)
     ax.stem([grouped_data.iloc[0][MEAN]], [0.1], linefmt="C1",
             markerfmt="C1", label=MEAN)
@@ -169,6 +171,13 @@ def display_one_kdeplot(ax, iris, column_name, title):
             markerfmt="C2", label=CI95_LOW)
     ax.stem([grouped_data.iloc[0][CI95_HIGH]], [0.1], linefmt="C3",
             markerfmt="C3", label=CI95_HIGH)
+
+    # Now, show what a "normal" distribution looks like on top
+    mu = grouped_data.iloc[0][MEAN]
+    std = grouped_data.iloc[0][STD]
+    x = np.linspace(mu - 3*std, mu + 3*std, 100)
+    y = stats.norm.pdf(x, mu, std)
+    ax.plot(x, y, "g:", label="Normal")
 
 
 def display_bivariate_boxplots(iris, species_names, titles, column_names):
@@ -203,6 +212,8 @@ def display_all_graphs(
     # Show histograms of each column
     for column, (title, column_name) in enumerate(zip(titles, column_names)):
         graph_function(ax[0][column], iris, column_name, title)
+        if show_legend:
+            ax[0][column].legend()
 
     for row, species_name in enumerate(species_names, start=1):
         # Show histograms of each column for each species_name (e.g. "setosa")
