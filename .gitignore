@@ -142,3 +142,7 @@ models/minst1.model/variables/variables.index
 mnist/models/minst1.model/saved_model.pb
 mnist/models/minst1.model/variables/variables.data-00000-of-00001
 mnist/models/minst1.model/variables/variables.index
+mnist_digits/models/minst1.model/saved_model.pb
+mnist_digits/models/minst1.model/variables/variables.data-00000-of-00001
+mnist_digits/models/minst1.model/variables/variables.index
+mnist_digits/data/mnist.pkl
