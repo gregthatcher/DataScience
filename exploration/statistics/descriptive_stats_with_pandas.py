@@ -7,7 +7,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import itertools
-import scipy.stats as stats
+# import scipy.stats as stats
+from scipy import stats
 
 SEPAL_LENGTH = "sepal_length"
 SEPAL_WIDTH = "sepal_width"
@@ -70,7 +71,6 @@ def print_descriptive_stats(iris, species):
     print("\nMinimums:")
     print(iris.min())
     print("\nMaximums:")
-    print(iris.max())
     print("\nMeans:")
     print(iris.mean())
     print("\nVariances:")
@@ -116,12 +116,19 @@ def print_descriptive_stats(iris, species):
     print(iris.skew())
 
     print("\nKurtosis:")
-    print("(How likely are extreme events?  Normal Distribution has kurtosis of 3)")
+    print("(How likely are extreme events? ",
+        "Normal Distribution has kurtosis of 3)")
     print(iris.kurtosis())
 
     print("\nCovariances:")
     print(iris.cov())
 
+    # TODO : For continuous target variables, we should do separate 
+    # correlations of each feature
+    # with the target
+    # Use statsmodel sm.OLS(y, X).fit, and then print model.params
+    # (to find "important" variables);
+    # also print (model.summary())
     print("\nCorrelations:")
     print(iris.corr())
 
@@ -243,16 +250,23 @@ def display_scatter_combinations(
         sns.scatterplot(x=iris[combination[1][1]],
                         y=iris[combination[0][1]], hue=SPECIES,
                         ax=ax[row][column], data=iris)
+        slope, intercept, r_value, _, _, = stats.linregress(
+            iris[combination[1][1]], iris[combination[0][1]])
+        r_squared = r_value ** 2
+        sns.lineplot(x=iris[combination[1][1]],
+            y=(slope*iris[combination[1][1]]) + intercept,
+            color="r", label=f"r\u00b2 = {round(r_squared, 2)}", 
+            ax=ax[row][column])
 
-        ax[row][column].axvline(iris[combination[1][1]].quantile(
-            0.25), color="r", label=f"Q1 {combination[1][0]}")
-        ax[row][column].axvline(iris[combination[1][1]].quantile(
-            0.75), color="r", label=f"Q3 {combination[1][0]}")
+        # ax[row][column].axvline(iris[combination[1][1]].quantile(
+        #    0.25), color="r", label=f"Q1 {combination[1][0]}")
+        # ax[row][column].axvline(iris[combination[1][1]].quantile(
+        #    0.75), color="r", label=f"Q3 {combination[1][0]}")
 
-        ax[row][column].axhline(iris[combination[0][1]].quantile(
-            0.25), color="g", label=f"Q1 {combination[0][0]}")
-        ax[row][column].axhline(iris[combination[0][1]].quantile(
-            0.75), color="g", label=f"Q3 {combination[0][0]}")
+        # ax[row][column].axhline(iris[combination[0][1]].quantile(
+        #    0.25), color="g", label=f"Q1 {combination[0][0]}")
+        # ax[row][column].axhline(iris[combination[0][1]].quantile(
+        #    0.75), color="g", label=f"Q3 {combination[0][0]}")
 
         ax[row][column].legend()
 
@@ -263,10 +277,10 @@ def display_scatter_combinations(
 
 def display_correlations(data):
     plt.figure(figsize=(12, 8))
-    corr = data.corr()
+    corr=data.corr()
     # TODO: What does this code mean?
     # Only show "triangle"
-    mask = np.triu(np.ones_like(corr, dtype=bool))
+    mask=np.triu(np.ones_like(corr, dtype=bool))
     sns.heatmap(corr, annot=True, cmap="YlOrBr", mask=mask)
     plt.title("Correlations")
     plt.show()
@@ -277,7 +291,7 @@ def display_iris_scatter_plots(iris, species_names, titles, column_names):
     display_scatter_combinations(iris, titles,
                                  column_names, "All Data")
     for species_name in species_names:
-        data = iris[iris[SPECIES] == species_name]
+        data=iris[iris[SPECIES] == species_name]
         display_scatter_combinations(data, titles,
                                      column_names,
                                      f"{species_name.capitalize()} Data")
