@@ -19,6 +19,8 @@ class AdjacencyMatrixGraph(graph_base.GraphBase):
 
         self.matrix = np.zeros((num_vertices, num_vertices))
 
+    # Add edge from v1 _to_ v2 with weight;  if its an undirected
+    # graph, also add the mirror (v2 _to_ v1) edge
     def add_edge(self, v1, v2, weight=1):
         self._check_two_vertices(v1, v2)
         self._check_weight(weight)
@@ -50,21 +52,41 @@ class AdjacencyMatrixGraph(graph_base.GraphBase):
     # Count all nodes which "flow" into v
     def get_indegree(self, v):
         self._check_one_vertex(v)
-        return len(self.get_adjacent_vertices(v))
+        indegree = 0
+        for i in range(self.num_vertices):
+            if (self.matrix[i, v] > 0):
+                indegree += 1
+        return indegree
 
     def get_edge_weight(self, v1, v2):
         self._check_two_vertices(v1, v2)
         return self.matrix[v1, v2]
 
     def display(self):
+        print("\nMatrix:")
         for i in range(self.num_vertices):
             for j in range(self.num_vertices):
                 print(self.matrix[i, j], " ", sep=" ", end="")
             print()
-        print()
+
+        print("\nEdges:")
         for i in range(self.num_vertices):
             for v in self.get_adjacent_vertices(i):
                 print(i, "-->", v)
+
+        print("\nAdjacent Vertices:")
+        for i in range(self.num_vertices):
+            print("Adjacent to: ", i, self.get_adjacent_vertices(i))
+
+        print("\nIndegrees:")
+        for i in range(self.num_vertices):
+            print("Indegree :", i, self.get_indegree(i))
+
+        print("\nWeights:")
+        for i in range(self.num_vertices):
+            for j in self.get_adjacent_vertices(i):
+                print("Edge Weight: ", i, " ", j,
+                      " weight: ", self.get_edge_weight(i, j))
 
     def _check_two_vertices(self, v1, v2):
         self._check_one_vertex(v1)
