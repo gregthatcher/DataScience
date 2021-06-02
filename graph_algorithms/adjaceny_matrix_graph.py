@@ -22,8 +22,8 @@ class AdjacencyMatrixGraph(graph_base.GraphBase):
     # Add edge from v1 _to_ v2 with weight;  if its an undirected
     # graph, also add the mirror (v2 _to_ v1) edge
     def add_edge(self, v1, v2, weight=1):
-        self._check_two_vertices(v1, v2)
-        self._check_weight(weight)
+        super()._check_two_vertices(v1, v2)
+        super()._check_weight(weight)
 
         self.matrix[v1][v2] = weight
 
@@ -40,7 +40,7 @@ class AdjacencyMatrixGraph(graph_base.GraphBase):
     # that the graph has an edge _from_ i _to_ j
     # That is, "adjacent" means "child"
     def get_adjacent_vertices(self, v):
-        self._check_one_vertex(v)
+        super()._check_one_vertex(v)
 
         adjacent_vertices = []
         for i in range(self.num_vertices):
@@ -51,7 +51,7 @@ class AdjacencyMatrixGraph(graph_base.GraphBase):
 
     # Count all nodes which "flow" into v
     def get_indegree(self, v):
-        self._check_one_vertex(v)
+        super()._check_one_vertex(v)
         indegree = 0
         for i in range(self.num_vertices):
             if (self.matrix[i, v] > 0):
@@ -59,7 +59,7 @@ class AdjacencyMatrixGraph(graph_base.GraphBase):
         return indegree
 
     def get_edge_weight(self, v1, v2):
-        self._check_two_vertices(v1, v2)
+        super()._check_two_vertices(v1, v2)
         return self.matrix[v1, v2]
 
     def display(self):
@@ -69,36 +69,7 @@ class AdjacencyMatrixGraph(graph_base.GraphBase):
                 print(self.matrix[i, j], " ", sep=" ", end="")
             print()
 
-        print("\nEdges:")
-        for i in range(self.num_vertices):
-            for v in self.get_adjacent_vertices(i):
-                print(i, "-->", v)
-
-        print("\nAdjacent Vertices:")
-        for i in range(self.num_vertices):
-            print("Adjacent to: ", i, self.get_adjacent_vertices(i))
-
-        print("\nIndegrees:")
-        for i in range(self.num_vertices):
-            print("Indegree :", i, self.get_indegree(i))
-
-        print("\nWeights:")
-        for i in range(self.num_vertices):
-            for j in self.get_adjacent_vertices(i):
-                print("Edge Weight: ", i, " ", j,
-                      " weight: ", self.get_edge_weight(i, j))
-
-    def _check_two_vertices(self, v1, v2):
-        self._check_one_vertex(v1)
-        self._check_one_vertex(v2)
-
-    def _check_one_vertex(self, v):
-        if (v < 0 or v >= self.num_vertices):
-            raise ValueError("Vertex {v} does not exist!")
-
-    def _check_weight(self, weight):
-        if weight < 1:
-            raise ValueError("Weight must be >= 1.")
+        super().display()
 
 
 if __name__ == "__main__":
