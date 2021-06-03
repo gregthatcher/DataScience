@@ -6,6 +6,8 @@ https://towardsdatascience.com/mnist-cnn-python-c61a5bce7a19
 
 from random import randint
 from keras.datasets import mnist
+# Note that keras is now _part_ of tensorflow
+# In the future, from tensorflow import keras
 import keras
 from keras.utils import to_categorical
 from keras.layers import Dense, Activation, Flatten, Conv2D, MaxPooling2D
@@ -13,7 +15,7 @@ from keras.models import Sequential
 import numpy as np
 import matplotlib.pyplot as plt
 
-MODEL_PATH = "./mnist/models/minst1.model"
+MODEL_PATH = "./image_processing/mnist_digits/models/minst1.model"
 
 (train_X, train_y), (test_X, test_y) = mnist.load_data()
 #from mnist import MNIST
