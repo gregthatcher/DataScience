@@ -2,6 +2,8 @@
 Represent a graph using an Adjacency matrix
 Ideas from https://app.pluralsight.com/course-player?clipId=70897c13-9ed7-4067-a56e-06ba83dfe681
 
+This graph reprensentation is good for small, densely connected graphs.
+
 If a row and column has a nonzero entry, then there is an edge from that
 row index to that column index
 
