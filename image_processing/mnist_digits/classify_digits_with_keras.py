@@ -15,7 +15,7 @@ from keras.models import Sequential
 import numpy as np
 import matplotlib.pyplot as plt
 
-MODEL_PATH = "./image_processing/mnist_digits/models/minst1.model"
+MODEL_PATH = "./image_processing/mnist_digits/models/keras_digits.model"
 
 (train_X, train_y), (test_X, test_y) = mnist.load_data()
 #from mnist import MNIST

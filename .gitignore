@@ -151,3 +151,9 @@ image_processing/mnist_digits/models/minst1.model/saved_model.pb
 image_processing/mnist_digits/models/minst1.model/saved_model.pb
 image_processing/mnist_digits/models/minst1.model/variables/variables.data-00000-of-00001
 image_processing/mnist_digits/models/minst1.model/variables/variables.index
+image_processing/mnist_digits/models/keras_digits.model/saved_model.pb
+image_processing/mnist_digits/models/keras_digits.model/variables/variables.data-00000-of-00001
+image_processing/mnist_digits/models/keras_digits.model/variables/variables.index
+image_processing/mnist_fashion/models/keras_clothes.model/saved_model.pb
+image_processing/mnist_fashion/models/keras_clothes.model/variables/variables.index
+image_processing/mnist_fashion/models/keras_clothes.model/variables/variables.data-00000-of-00001

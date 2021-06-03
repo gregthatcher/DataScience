@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-MODEL_PATH = "./image_processing/mnist_fashion/models/minst1.model"
+MODEL_PATH = "./image_processing/mnist_fashion/models/keras_clothes.model"
 
 fashion_mnist = keras.datasets.fashion_mnist
 (X_train_full, y_train_full), (X_test, y_test) = fashion_mnist.load_data()
@@ -86,4 +86,5 @@ except OSError:
     plt.show()
     
 # How good is our model?
-model.evalute(X_test, y_test)
+print("Evaluate:")
+model.evaluate(X_test, y_test)
