@@ -117,13 +117,13 @@ def print_descriptive_stats(iris, species):
 
     print("\nKurtosis:")
     print("(How likely are extreme events? ",
-        "Normal Distribution has kurtosis of 3)")
+          "Normal Distribution has kurtosis of 3)")
     print(iris.kurtosis())
 
     print("\nCovariances:")
     print(iris.cov())
 
-    # TODO : For continuous target variables, we should do separate 
+    # TODO : For continuous target variables, we should do separate
     # correlations of each feature
     # with the target
     # Use statsmodel sm.OLS(y, X).fit, and then print model.params
@@ -254,9 +254,9 @@ def display_scatter_combinations(
             iris[combination[1][1]], iris[combination[0][1]])
         r_squared = r_value ** 2
         sns.lineplot(x=iris[combination[1][1]],
-            y=(slope*iris[combination[1][1]]) + intercept,
-            color="r", label=f"r\u00b2 = {round(r_squared, 2)}", 
-            ax=ax[row][column])
+                     y=(slope*iris[combination[1][1]]) + intercept,
+                     color="r", label=f"r\u00b2 = {round(r_squared, 2)}",
+                     ax=ax[row][column])
 
         # ax[row][column].axvline(iris[combination[1][1]].quantile(
         #    0.25), color="r", label=f"Q1 {combination[1][0]}")
@@ -277,10 +277,10 @@ def display_scatter_combinations(
 
 def display_correlations(data):
     plt.figure(figsize=(12, 8))
-    corr=data.corr()
+    corr = data.corr()
     # TODO: What does this code mean?
     # Only show "triangle"
-    mask=np.triu(np.ones_like(corr, dtype=bool))
+    mask = np.triu(np.ones_like(corr, dtype=bool))
     sns.heatmap(corr, annot=True, cmap="YlOrBr", mask=mask)
     plt.title("Correlations")
     plt.show()
@@ -291,7 +291,7 @@ def display_iris_scatter_plots(iris, species_names, titles, column_names):
     display_scatter_combinations(iris, titles,
                                  column_names, "All Data")
     for species_name in species_names:
-        data=iris[iris[SPECIES] == species_name]
+        data = iris[iris[SPECIES] == species_name]
         display_scatter_combinations(data, titles,
                                      column_names,
                                      f"{species_name.capitalize()} Data")
