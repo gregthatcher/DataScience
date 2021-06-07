@@ -45,6 +45,9 @@ class AdjacencySetGraph(graph_base.GraphBase):
             raise ValueError("An adjacency set cannot (currently) handle edge weights > 1")
         
         self.vertex_list[v1].add_edge(v2)
+        
+        if self.directed is False:
+            self.vertex_list[v2].add_edge(v1)
 
     def get_adjacent_vertices(self, v):
         super()._check_one_vertex(v)
