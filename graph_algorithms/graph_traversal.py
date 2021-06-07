@@ -25,3 +25,23 @@ def breadth_first(graph, start=0):
                 queue.put(v)
 
     return visits_in_order
+
+
+def __depth_first(graph, visited, visit_order, current):
+    # If we've already visited this node
+    if visited[current] == 1:
+        return
+
+    visited[current] = 1
+    visit_order.append(current)
+    #print("Visited:", current)
+
+    for vertex in graph.get_adjacent_vertices(current):
+        __depth_first(graph, visited, visit_order, vertex)
+
+
+def depth_first(graph, current=0):
+    visited = np.zeros(graph.num_vertices)
+    visit_order = []
+    __depth_first(graph, visited, visit_order, current)
+    return visit_order
