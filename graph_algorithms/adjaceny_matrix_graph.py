@@ -4,6 +4,8 @@ Ideas from https://app.pluralsight.com/course-player?clipId=70897c13-9ed7-4067-a
 
 This graph reprensentation is good for small, densely connected graphs.
 
+This is the most common way of representing a graph
+
 If a row and column has a nonzero entry, then there is an edge from that
 row index to that column index
 
