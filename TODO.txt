@@ -1,0 +1,13 @@
+1.) Kalman Filter - https://medium.com/dataman-in-ai/kalman-filter-explained-4d65b47916bf
+2.) Supervised Learning
+    a.) XGBoost
+    b.) Random Forest
+    c.) Decision Tree
+    d.) KNN
+5.) Keras
+    CNN
+    RNN
+    Feed Forwad
+6.) Unsupervised Learning
+    a.) KMeans
+7.) Finish distributions
