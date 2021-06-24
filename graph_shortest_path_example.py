@@ -3,6 +3,8 @@ Find shortest path of an _unweighted_ graph.
 (Use Dijkstra's Algorithm for weighted graphs.)
 Ideas from:
 https://app.pluralsight.com/course-player?clipId=493787bc-6d05-4eba-bf84-710d07e3ddf6
+TODO: Show image of graph, see
+https://stackoverflow.com/questions/20133479/how-to-draw-directed-graphs-using-networkx-in-python
 '''
 
 import graph_algorithms.find_shortest_path as find_shortest_path
