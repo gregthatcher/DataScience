@@ -8,6 +8,7 @@ https://app.pluralsight.com/course-player?clipId=493787bc-6d05-4eba-bf84-710d07e
 '''
 
 from queue import Queue
+# This is used for our "priority dictionary"
 from pqdict import pqdict
 
 

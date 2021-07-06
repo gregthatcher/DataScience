@@ -1,0 +1,9 @@
+Ideas for distributions section:
+https://medium.com/swlh/understanding-probability-distribution-b5c041f5d564
+
+
+
+https://towardsdatascience.com/all-probability-distributions-explained-in-six-minutes-fe57b1d49600
+
+Make a "detecting outliers" section
+Some ideas from : https://medium.datadriveninvestor.com/outlier-detection-with-k-means-clustering-in-python-ee3ac1826fb0
