@@ -1,4 +1,4 @@
-import graph_algorithms.adjaceny_matrix_graph as matrix
+import graph_library.adjaceny_matrix_graph as matrix
 
 g = matrix.AdjacencyMatrixGraph(4)
 

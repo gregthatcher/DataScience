@@ -1,4 +1,4 @@
-import graph_algorithms.adjacency_set_graph as adjacency_set
+import graph_library.adjacency_set_graph as adjacency_set
 
 
 g = adjacency_set.AdjacencySetGraph(4)

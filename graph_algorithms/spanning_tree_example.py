@@ -3,8 +3,8 @@ Ideas from: https://app.pluralsight.com/course-player?clipId=bf5077d9-deff-4529-
 '''
 
 
-import graph_algorithms.adjaceny_matrix_graph as matrix
-from graph_algorithms.minimal_spanning_tree import spanning_tree_pims, \
+import graph_library.adjaceny_matrix_graph as matrix
+from graph_library.minimal_spanning_tree import spanning_tree_pims, \
     spanning_tree_krushal, print_krushal_spanning_tree
 
 g = matrix.AdjacencyMatrixGraph(8, directed=False)

@@ -5,8 +5,8 @@ Ideas from:
 https://app.pluralsight.com/course-player?clipId=89220a1d-cbb8-4b0f-86c6-163dc0c9d8ac
 '''
 
-from graph_algorithms.find_shortest_path import shortest_path_dijkstra
-import graph_algorithms.adjaceny_matrix_graph as matrix_graph
+from graph_library.find_shortest_path import shortest_path_dijkstra
+import graph_library.adjaceny_matrix_graph as matrix_graph
 
 print("Find shortest path for _undirected_, weighted, adjacency matrix graph.")
 # We have to use matrix graph, as adjacency graph can't (currently?)

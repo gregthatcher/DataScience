@@ -7,9 +7,9 @@ TODO: Show image of graph, see
 https://stackoverflow.com/questions/20133479/how-to-draw-directed-graphs-using-networkx-in-python
 '''
 
-import graph_algorithms.find_shortest_path as find_shortest_path
-import graph_algorithms.adjacency_set_graph as adjacency_graph
-import graph_algorithms.adjaceny_matrix_graph as matrix_graph
+import graph_library.find_shortest_path as find_shortest_path
+import graph_library.adjacency_set_graph as adjacency_graph
+import graph_library.adjaceny_matrix_graph as matrix_graph
 
 print("Find shortest path for undirected, unweighted, adjacency set graph.")
 g = adjacency_graph.AdjacencySetGraph(8, directed=False)

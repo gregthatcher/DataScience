@@ -1,6 +1,6 @@
 from numpy.core.fromnumeric import sort
-import graph_algorithms.topological_sort as t_sort
-import graph_algorithms.adjaceny_matrix_graph as graph
+import graph_library.topological_sort as t_sort
+import graph_library.adjaceny_matrix_graph as graph
 
 # Note that this is a "DAG"
 g = graph.AdjacencyMatrixGraph(9, directed=True)

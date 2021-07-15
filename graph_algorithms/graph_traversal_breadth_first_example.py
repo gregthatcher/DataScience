@@ -5,9 +5,9 @@ Ideas from: https://app.pluralsight.com/course-player?clipId=894c22e6-04aa-4002-
 from queue import Queue
 import numpy as np
 
-import graph_algorithms.adjaceny_matrix_graph as matrix_graph
-import graph_algorithms.adjacency_set_graph as set_graph
-from graph_algorithms.graph_traversal import breadth_first
+import graph_library.adjaceny_matrix_graph as matrix_graph
+import graph_library.adjacency_set_graph as set_graph
+from graph_library.graph_traversal import breadth_first
 
 
 g = matrix_graph.AdjacencyMatrixGraph(9)
