@@ -11,3 +11,9 @@
 6.) Unsupervised Learning
     a.) KMeans
 7.) Finish distributions
+
+8.) Sections for
+    Classification
+    Regression
+    Clustering
+    Rule Extraction (e.g. Recommendations)
