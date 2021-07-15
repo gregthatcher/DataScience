@@ -157,3 +157,10 @@ image_processing/mnist_digits/models/keras_digits.model/variables/variables.inde
 image_processing/mnist_fashion/models/keras_clothes.model/saved_model.pb
 image_processing/mnist_fashion/models/keras_clothes.model/variables/variables.index
 image_processing/mnist_fashion/models/keras_clothes.model/variables/variables.data-00000-of-00001
+machine_learning/image_processing/mnist_digits/models/keras_digits.model/saved_model.pb
+machine_learning/image_processing/mnist_digits/models/keras_digits.model/variables/variables.data-00000-of-00001
+machine_learning/image_processing/mnist_digits/models/keras_digits.model/variables/variables.index
+machine_learning/image_processing/mnist_fashion/models/keras_clothes.model/saved_model.pb
+machine_learning/image_processing/mnist_fashion/models/keras_clothes.model/variables/variables.data-00000-of-00001
+machine_learning/image_processing/mnist_fashion/models/keras_clothes.model/variables/variables.index
+machine_learning/image_processing/mnist_digits/data/mnist.pkl
