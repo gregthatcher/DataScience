@@ -24,8 +24,9 @@ auto_data = pd.read_csv("data/raw_data/imports-85.data",
                             "fuel-type",  # diesel, gas.
                             "aspiration",  # std, turbo.
                             "num-of-doors",  # four, two.
-                            # hardtop, wagon, sedan, hatchback, convertible.
-                            "body-style",
+                            
+                            "body-style", # hardtop, wagon, sedan, hatchback,
+                                            # convertible.
                             "drive-wheels",  # 4wd, fwd, rwd.
                             "engine-location",  # front, rear.
                             "wheel-base",  # continuous from 86.6 120.9.
@@ -33,13 +34,14 @@ auto_data = pd.read_csv("data/raw_data/imports-85.data",
                             "width",  # continuous from 60.3 to 72.3.
                             "height",  # continuous from 47.8 to 59.8.
                             "curb-weight",  # continuous from 1488 to 4066.
-                            # dohc, dohcv, l, ohc, ohcf, ohcv, rotor.
-                            "engine-type",
-                            # eight, five, four, six, three, twelve, two.
-                            "num-of-cylinders",
+                            "engine-type", # dohc, dohcv, l, ohc, ohcf, ohcv,
+                                            # rotor.
+                            "num-of-cylinders", # eight, five, four, six,
+                                                # three, twelve, two.
                             "engine-size",  # continuous from 61 to 326.
-                            # 1bbl, 2bbl, 4bbl, idi, mfi, mpfi, spdi, spfi.
-                            "fuel-system",
+                            
+                            "fuel-system", # 1bbl, 2bbl, 4bbl, idi, mfi,
+                                            #  mpfi, spdi, spfi.
                             "bore",  # continuous from 2.54 to 3.94.
                             "stroke",  # continuous from 2.07 to 4.17.
                             "compression-ratio",  # continuous from 7 to 23.
@@ -64,7 +66,7 @@ print(auto_data.describe(include="all"))
 
 for column in ["price", "horsepower"]:
     print(f"Before changing {column}:", auto_data[column].describe(), sep="\n")
-    auto_data["price"] = pd.to_numeric(auto_data[column], errors="coerce")
+    auto_data[column] = pd.to_numeric(auto_data[column], errors="coerce")
     print(f"\nAfter changing {column}", auto_data[column].describe(), sep="\n")
 
 # Get rid of columns we know aren't predictors
