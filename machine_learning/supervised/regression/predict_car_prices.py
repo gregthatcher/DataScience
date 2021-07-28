@@ -3,6 +3,9 @@ Ideas from : https://app.pluralsight.com/course-player?clipId=eaf84c38-4882-42a6
 Using pre-processed car data, predict the price of cars
 TODO: Why are my results (R^2, root mean square error) better than results in
 the video above?
+Note that regression models are considered to be a High Bias Algorithm
+(as opposed to Decision Trees and Dense Neural Networks, which are
+high Variance Algorithms)
 '''
 
 import math
