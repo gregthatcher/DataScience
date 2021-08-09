@@ -15,10 +15,10 @@ from keras.models import Sequential
 import numpy as np
 import matplotlib.pyplot as plt
 
-MODEL_PATH = "./image_processing/mnist_digits/models/keras_digits.model"
+MODEL_PATH = "./machine_learning/supervised/classification/image_processing/"\
+    "mnist_digits/saved_models/keras_digits.model"
 
 (train_X, train_y), (test_X, test_y) = mnist.load_data()
-#from mnist import MNIST
 
 print("Initialial Shape ", train_X.shape)
 train_X = train_X.reshape((train_X.shape[0], 28, 28, 1))

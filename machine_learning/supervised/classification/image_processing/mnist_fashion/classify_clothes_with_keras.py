@@ -10,7 +10,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-MODEL_PATH = "./image_processing/mnist_fashion/models/keras_clothes.model"
+MODEL_PATH = "./machine_learning/supervised/classification/image_processing/"\
+    "mnist_fashion/saved_models/keras_clothes.model"
 
 fashion_mnist = keras.datasets.fashion_mnist
 (X_train_full, y_train_full), (X_test, y_test) = fashion_mnist.load_data()
@@ -68,8 +69,8 @@ except OSError:
     # "sparse_categorical_crossentropy" because we have sparse (distinct) labels
 
     model.compile(loss="sparse_categorical_crossentropy",
-                optimizer="sgd",
-                metrics=["accuracy"])
+                  optimizer="sgd",
+                  metrics=["accuracy"])
 
     # The accuracy shown at each epoch is the percentage correct
     # The loss is the cross-entropy loss
@@ -80,11 +81,11 @@ except OSError:
 
     model.save(MODEL_PATH)
 
-    pd.DataFrame(history.history).plot(figsize = (16, 10))
+    pd.DataFrame(history.history).plot(figsize=(16, 10))
     plt.grid(True)
     plt.gca().set_ylim(0, 1)
     plt.show()
-    
+
 # How good is our model?
 print("Evaluate:")
 model.evaluate(X_test, y_test)

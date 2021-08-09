@@ -18,13 +18,9 @@ y = auto_data["mpg"]
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=11)
 
-# Not trying "precomputed", as it needs more research
-for kernel in ["linear", "rbf", "poly", "sigmoid"]:
-    # "C" is the penalty factor for points that lie outside
-    # our margins
-    # Note that the default for epsilon (width of each margin)
-    # is 0.1
-    regression_model = SVR(kernel=kernel, C=1.0)
+
+def analyze_model(X_train, y_train, X_test, y_test, kernel, C):
+    regression_model = SVR(kernel=kernel, C=C)
     regression_model.fit(X_train, y_train)
 
     train_score = regression_model.score(X_train, y_train)
@@ -44,7 +40,7 @@ for kernel in ["linear", "rbf", "poly", "sigmoid"]:
         f"{train_score:.2f}")
     plt.ylabel("Mileage")
     plt.legend()
-    plt.title(f"SVR - {kernel}")
+    plt.title(f"SVR - kernel={kernel} C={C}")
     plt.show()
 
     # Apparently, we only have coef_ when using a linear kernel
@@ -56,3 +52,19 @@ for kernel in ["linear", "rbf", "poly", "sigmoid"]:
         plt.xticks(rotation=45)
         plt.tight_layout()
         plt.show()
+
+
+# Not trying "precomputed", as it needs more research
+for kernel in ["linear", "rbf", "poly", "sigmoid"]:
+    # "C" is the penalty factor for points that lie outside
+    # our margins
+    # Note that the default for epsilon (width of each margin)
+    # is 0.1
+    analyze_model(X_train, y_train, X_test, y_test, kernel, 1.0)
+
+# Reducing the C parameter reduces the penalty, so the model
+# focuses more on fitting to the data rather than penalizing
+# points outside the margin; note that C=0 means no penalty,
+# but model throws ValueError exception for this.
+for C in [1.0, 0.5, 0.25, 0.1, 0.01]:
+    analyze_model(X_train, y_train, X_test, y_test, "linear", C)

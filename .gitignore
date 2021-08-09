@@ -173,3 +173,9 @@ machine_learning/supervised/image_processing/mnist_fashion/models/keras_clothes.
 machine_learning/supervised/image_processing/mnist_fashion/models/keras_clothes.model/variables/variables.index
 machine_learning/supervised/image_processing/mnist_fashion/models/keras_clothes.model/saved_model.pb
 machine_learning/supervised/image_processing/mnist_digits/data/mnist.pkl
+machine_learning/supervised/classification/image_processing/mnist_digits/saved_models/keras_digits.model/saved_model.pb
+machine_learning/supervised/classification/image_processing/mnist_digits/saved_models/keras_digits.model/variables/variables.data-00000-of-00001
+machine_learning/supervised/classification/image_processing/mnist_digits/saved_models/keras_digits.model/variables/variables.index
+machine_learning/supervised/classification/image_processing/mnist_fashion/saved_models/keras_clothes.model/saved_model.pb
+machine_learning/supervised/classification/image_processing/mnist_fashion/saved_models/keras_clothes.model/variables/variables.data-00000-of-00001
+machine_learning/supervised/classification/image_processing/mnist_fashion/saved_models/keras_clothes.model/variables/variables.index

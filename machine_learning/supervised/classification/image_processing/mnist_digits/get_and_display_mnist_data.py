@@ -17,7 +17,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 print(os.getcwd())
-f = gzip.open('./MNIST/data/mnist.pkl.gz', 'rb')
+f = gzip.open('./data/raw_data/MNIST/mnist.pkl.gz', 'rb')
 data = pickle.load(f, encoding='bytes')
 f.close()
 (x_train, y_train), (x_test, y_test) = data
