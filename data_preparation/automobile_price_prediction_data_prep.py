@@ -24,9 +24,9 @@ auto_data = pd.read_csv("data/raw_data/imports-85.data",
                             "fuel-type",  # diesel, gas.
                             "aspiration",  # std, turbo.
                             "num-of-doors",  # four, two.
-                            
-                            "body-style", # hardtop, wagon, sedan, hatchback,
-                                            # convertible.
+
+                            "body-style",  # hardtop, wagon, sedan, hatchback,
+                            # convertible.
                             "drive-wheels",  # 4wd, fwd, rwd.
                             "engine-location",  # front, rear.
                             "wheel-base",  # continuous from 86.6 120.9.
@@ -34,13 +34,13 @@ auto_data = pd.read_csv("data/raw_data/imports-85.data",
                             "width",  # continuous from 60.3 to 72.3.
                             "height",  # continuous from 47.8 to 59.8.
                             "curb-weight",  # continuous from 1488 to 4066.
-                            "engine-type", # dohc, dohcv, l, ohc, ohcf, ohcv,
+                            "engine-type",  # dohc, dohcv, l, ohc, ohcf, ohcv,
                                             # rotor.
-                            "num-of-cylinders", # eight, five, four, six,
+                            "num-of-cylinders",  # eight, five, four, six,
                                                 # three, twelve, two.
                             "engine-size",  # continuous from 61 to 326.
-                            
-                            "fuel-system", # 1bbl, 2bbl, 4bbl, idi, mfi,
+
+                            "fuel-system",  # 1bbl, 2bbl, 4bbl, idi, mfi,
                                             #  mpfi, spdi, spfi.
                             "bore",  # continuous from 2.54 to 3.94.
                             "stroke",  # continuous from 2.07 to 4.17.
@@ -105,6 +105,16 @@ print("Before dropna:", auto_data.shape)
 auto_data = auto_data.dropna()
 print("After dropna:", auto_data.shape)
 
-print(auto_data[auto_data.isnull().any(axis=1)])
+print("Any Nulls", auto_data[auto_data.isnull().any(axis=1)])
 
+print("Columns that are object type",
+      list(auto_data.select_dtypes(['object']).columns))
+
+print(auto_data[["bore", "stroke", "peak-rpm"]].head())
+
+auto_data[["bore", "stroke", "peak-rpm"]
+          ] = auto_data[["bore", "stroke", "peak-rpm"]].apply(pd.to_numeric)
+print("Columns that are object type",
+      list(auto_data.select_dtypes(['object']).columns))
+auto_data.info()
 auto_data.to_csv("data/preprocessed_data/car_prices.csv", index=False)

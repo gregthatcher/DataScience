@@ -66,8 +66,8 @@ def analyze_model(model, model_name, X_train, y_train, X_test, y_test):
     plt.plot(y_predict, label="Predicted")
     plt.plot(y_test.values, label="Actual")
     plt.text(
-        12, 30000, "Expected prediction deviation from true value:"
-        f"{root_mean_square_error:.2f}")
+        12, 30000, "Expected prediction deviation from true value: "
+        f"{root_mean_square_error:.2f} dollars")
     plt.text(
         0, 35000, f"Test Score {test_score:.2f}\nTrain Score "
         f"{train_score:.2f}")
@@ -77,6 +77,8 @@ def analyze_model(model, model_name, X_train, y_train, X_test, y_test):
     plt.show()
 
 
+# Data was prepared by
+# data_preparation/automobile_price_prediction_data_prep.py
 auto_data = pd.read_csv("data/preprocessed_data/car_prices.csv")
 
 # print(auto_data.head())
@@ -149,8 +151,28 @@ analyze_model(lasso_model, "Lasso - Alpha = 5",
 # (it can be expressed/calculated as a formula),
 # so it only tries one model.
 # TODO: Let's try some "hyperparamter tuning" to find best Alpha
-for alpha in [0.05, 0.5]:
+# Note that a high value (1.0) causes test score to fall
+for alpha in [0.05, 0.5, 1.0]:
     ridge_model = Ridge(alpha=alpha, normalize=True)
     ridge_model.fit(X_train, y_train)
     analyze_model(ridge_model, f"Ridge - Alpha = {alpha}",
                   X_train, y_train, X_test, y_test)
+
+# SVM _Classification_ tries to use "support vectors"
+# to create a maximum margin around the separating
+# hyperplane with no data points within the margin.
+# (i.e. with no points inside the margin)
+# In contrast, SVM Regression tries to create a margin
+# around a hyerplane which has as many points as possible
+# _inside_ the margin.  The width of this margin
+# is controlled by the hyperparameter, "epsilon".
+# (the total width of the margin around the hyperplane is 2 * epsilon)
+# (in contrast, in SVM Classification, the width of the margin is found
+# by the optimizer).
+# In summary, SVM Classification has an objective
+# function with big penalties for points on the wrong side
+# of the margin, whereas SVM Regression has penalties
+# for points which are outside the margin -- it doesn't
+# matter if these points are on the correct side or not.
+# These penalized "Margin Violations" are multiplied by
+# the hyperparameter "C".
