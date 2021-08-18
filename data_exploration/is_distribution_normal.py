@@ -1,5 +1,7 @@
 '''
 Test to see if a distribution is normal or not
+TODO: Also try stats.normaltest(x) from
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.normaltest.html
 '''
 from scipy.stats import shapiro
 import matplotlib.pyplot as plt

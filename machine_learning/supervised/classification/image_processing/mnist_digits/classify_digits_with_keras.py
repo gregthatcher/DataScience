@@ -20,7 +20,7 @@ MODEL_PATH = "./machine_learning/supervised/classification/image_processing/"\
 
 (train_X, train_y), (test_X, test_y) = mnist.load_data()
 
-print("Initialial Shape ", train_X.shape)
+print("Initial Shape ", train_X.shape)
 train_X = train_X.reshape((train_X.shape[0], 28, 28, 1))
 test_X = test_X.reshape((test_X.shape[0], 28, 28, 1))
 print("Final Shape ", train_X.shape)
