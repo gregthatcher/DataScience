@@ -8,7 +8,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Possible stats.stackexhange.com question:
-# What is intuition behind distributions getting narrower with smaller mu (average)
+# What is intuition behind distributions getting narrower with smaller
+# mu (average)
 fig, ax = plt.subplots(1, 3, figsize=(10, 7))
 
 plt.style.use("ggplot")
