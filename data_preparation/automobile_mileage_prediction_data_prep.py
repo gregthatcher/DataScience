@@ -7,7 +7,7 @@ Ideas from: https://app.pluralsight.com/course-player?clipId=5deae079-7e1d-4226-
 import numpy as np
 import pandas as pd
 
-auto_data = pd.read_csv("data/raw_data/auto-mpg.data",
+auto_data = pd.read_csv("data/raw_data/AutoMileage/auto-mpg.data",
                         delim_whitespace=True,
                         header=None,
                         names=["mpg",

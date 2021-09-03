@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 
 print(os.getcwd())
-auto_data = pd.read_csv("data/raw_data/imports-85.data",
+auto_data = pd.read_csv("data/raw_data/AutoPrices/imports-85.data",
                         sep=r'\s*,\s*', engine="python",
                         header=None,
                         names=[
