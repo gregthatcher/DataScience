@@ -18,7 +18,7 @@ the underlying distribution (probability density) by placing a "kernel"
 (weighting function, generally used in convolution) on each point in the
 data set.  The simplest kernel is just a circle around the given point
 that counts the number of points inside it.  More generally, a Gaussian kernel
-is used.  
+is used.
 
 Instead of setting the number of clusters as a hyperparameter (as we do with
 K Means Clustering), we set a "bandwidth" parameter, specifying how
@@ -37,12 +37,63 @@ In contrast to K-Means Clustering
 this for Mean-Shift Clusturing).
 2.) It's harder to tune bandwidth parameter than it is to tune # of clusters
 3.) Mean Shift Clustering is much more computationally expensive O(n^2) vs O(n))
-4.) K-Means struggles with outliers; not so with Mean Shift
+4.) K-Means struggles with outliers; not so with Mean Shift Clustering
 '''
 
+import collections
+import numpy as np
 import pandas as pd
+from scipy.sparse import data
+from sklearn.cluster import MeanShift, estimate_bandwidth
 
-titanic_data = pd.read_csv("data/raw_data/Titanic/train.csv", quotechar='"')
+titanic_data = pd.read_csv("data/preprocessed_data/titanic_train.csv")
 
-print(titanic_data.columns)
+print("Shape: ", titanic_data.shape)
+print("Columns: ", titanic_data.columns)
 print(titanic_data.head())
+
+# Let's estimate the best bandwidth parameter.
+# Note that this runs in quadratic (N^2) time.
+# The bandwidth parameter sets the "shape of the kernel" -
+# smaller values give tall skinny kernels, larger values
+# give short fat kernels.
+# For a Gaussian (RBF) Kernel (the default) the bandwidth
+# is proportional to the standard deviation of the kernel.
+# Note that bandwidth is the _only_ hyperparamter for
+# Mean Shift Clustering
+best_bandwidth = estimate_bandwidth(titanic_data)
+print("Best Bandwidth: ", best_bandwidth)
+
+# analyzer = MeanShift(bandwidth=50)
+analyzer = MeanShift(bandwidth=best_bandwidth)
+
+# TODO: Why didn't we standardize/normalize before this?
+analyzer.fit(titanic_data)
+
+# Let's see how many clusters were created
+# this returns a "numpy.ndarray"
+labels = analyzer.labels_
+
+print("Unique Labels: ", np.unique(labels), type(labels))
+
+# Commenting out method shown in class, as one-liner
+# (titanic_data["cluster_group"] = labels) seems better
+# titanic_data["cluster_group2"] = np.nan
+# data_length = len(titanic_data)
+# for i in range(data_length):
+#     titanic_data.iloc[i, titanic_data.columns.get_loc(
+#         "cluster_group2")] = labels[i]
+
+# Here is better method
+titanic_data["cluster_group"] = labels
+
+# print(any(titanic_data["cluster_group"] != titanic_data["cluster_group2"]))
+
+
+print(titanic_data.head())
+
+# Around 40% of people survived
+# and more people in lower class cabins
+# We have more males than females (male=1; female=0)
+# Average fare around $35
+print(titanic_data.describe())
