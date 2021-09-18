@@ -1,4 +1,6 @@
 '''
+TODO: Mean Shift Clustering (after standardization??) might be something
+we want to add to data during "Feature Engineering"
 From https://www.geeksforgeeks.org/ml-mean-shift-clustering/
 "Given a set of data points, the algorithm iteratively assigns each data point
 towards the closest cluster centroid and direction to the closest cluster
@@ -97,3 +99,16 @@ print(titanic_data.head())
 # We have more males than females (male=1; female=0)
 # Average fare around $35
 print(titanic_data.describe())
+
+titanic_cluster_data = titanic_data.groupby(["cluster_group"]).mean()
+
+print(titanic_cluster_data)
+
+# Let's add count data to our "cluster_group"
+titanic_cluster_data["Counts"] = titanic_data.groupby(["cluster_group"]).size()
+# This returns a Pandas Series
+# print(type(titanic_data.groupby(["cluster_group"]).size()))
+# This returns a Pandas DataFrame
+# print(type(titanic_data.groupby(["cluster_group"]).mean()))
+
+print(titanic_cluster_data)
