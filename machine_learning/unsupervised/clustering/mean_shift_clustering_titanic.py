@@ -38,7 +38,8 @@ In contrast to K-Means Clustering
 1.) K-Means can't handle some non-linear data (Kernel function takes care of
 this for Mean-Shift Clusturing).
 2.) It's harder to tune bandwidth parameter than it is to tune # of clusters
-3.) Mean Shift Clustering is much more computationally expensive O(n^2) vs O(n))
+3.) Mean Shift Clustering is much more computationally expensive O(n^2) vs
+    O(n))
 4.) K-Means struggles with outliers; not so with Mean Shift Clustering
 '''
 
