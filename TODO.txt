@@ -16,3 +16,5 @@
     Rule Extraction (e.g. Recommendations)
     Feature Selection :
         Variance Thresholding : https://towardsdatascience.com/how-to-use-variance-thresholding-for-robust-feature-selection-a4503f2b5c3f
+
+9.) Automate running of multiple models, something like https://towardsdatascience.com/how-to-run-30-machine-learning-models-with-2-lines-of-code-d0f94a537e52        
