@@ -12,6 +12,20 @@ General steps for creating a keras model:
 3.) Compile Model
 4.) Train Model (via fit)
 5.) Evaluate Performance
+
+Rules for Thumb for number of Hidden Layers
+0 - Only represents linearly separable
+1 - Continous mapping from one finite space to another
+2 - Can represent arbitrary decision boundary
+3 or more - Can learn complex representations
+
+http://www.heatonresearch.com/2017/06/01/hidden-layers.html
+
+Rules of Thumb for Starting Number of Neurons in Hidden Layers
+(calculate all, and then consider number within their range)
+>= size of input lauyer AND <= size of output layer
+(2/3 * size of input layer) + size of output layer
+< 2 * size of input layer
 '''
 
 
