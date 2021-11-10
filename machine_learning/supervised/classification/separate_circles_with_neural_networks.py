@@ -39,6 +39,9 @@ from keras.layers import Dense
 from keras.optimizers import Adam
 
 # Get rid of tensorflow info and warnings
+# Remove this if you want to see if the GPU
+# is used or not, or if you want optimization
+# recommendations
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 

@@ -1,27 +1,24 @@
 '''
-Create two "blobs" of data, and separate them using a simple neural network
-Ideas from : https://app.pluralsight.com/course-player?clipId=049aaa4d-3c49-467c-abd6-13fd23a42a1a
-Create two blobs of linearly separable data
-Create a simple neural network model
-Draw a "countour curve" to show how the nn model separates the data
-
-General steps for creating a keras model:
-1.) Create Model
-2.) Add Layers
-3.) Compile Model
-4.) Train Model (via fit)
-5.) Evaluate Performance
+This is similar to separate_circles_with_neural_networks.py,
+but it uses the keras "functional api" which is more
+flexible than the "Sequential" model, allowing for more
+complex neural network architectures, including
+multiple inputs (at different layers), "iterative layers",
+and "multiple outputs".
+See : https://app.pluralsight.com/course-player?clipId=dc7c646b-d092-4a28-bfdb-01b97e477e6d
 '''
 
 
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-from sklearn.datasets import make_blobs
+from sklearn.datasets import make_circles
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
+from keras.models import Model
+from keras.layers import Input
 
 # Get rid of tensorflow info and warnings
 # Remove this if you want to see if the GPU
@@ -65,9 +62,7 @@ def plot_decision_boundary(model, X, y):
     return plt
 
 
-# X is a [1000, 2] sized array of x,y positions
-# y a [1000] sized array containing class index (or or 1)
-X, y = make_blobs(n_samples=1000, centers=2, random_state=42)
+X, y = make_circles(n_samples=1000, factor=.6, noise=0.1, random_state=42)
 
 plot_data(X, y)
 plt.show()
@@ -75,15 +70,21 @@ plt.show()
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=42)
 
-# 1.) Create Model
-model = Sequential()
+# Old way
+# model = Sequential()
+# model.add(Dense(4, activation="tanh", input_shape=(2,)))
+# model.add(Dense(4, activation="tanh"))
+# model.add(Dense(1, activation="sigmoid"))
 
-# 2.) Add Layers
-# In this simple case, we only add one layer (first parameter),
-# and use the sigmoid activation to return 0 or 1
-# input shape is a one dimensional array of 2 elements
-model.add(Dense(1, input_shape=(2,), activation="sigmoid"))
-
+# New, Functional API way
+inputs = Input(shape=(2,))
+# Hidden layers
+x = Dense(4, activation="tanh", name="Hidden-1")(inputs)
+x = Dense(4, activation="tanh", name="Hidden-2")(x)
+# Output layer
+o = Dense(1, activation="sigmoid", name="Output-Layer")(x)
+model = Model(inputs=inputs, outputs=o)
+print(model.summary())
 # 3.) Compile Model
 # Minimize cross entropy for a binary.
 # Maximize for accuracy.
