@@ -7,7 +7,7 @@
 5.) Keras
     CNN
     RNN
-    Feed Forwad
+    
 6.) Unsupervised Learning
     a.) KMeans
 7.) Finish distributions
@@ -18,3 +18,11 @@
         Variance Thresholding : https://towardsdatascience.com/how-to-use-variance-thresholding-for-robust-feature-selection-a4503f2b5c3f
 
 9.) Automate running of multiple models, something like https://towardsdatascience.com/how-to-run-30-machine-learning-models-with-2-lines-of-code-d0f94a537e52        
+10.) Image classification using keras' CIFAR 10 and CIFAR 100 datasets.
+11.) Text classificataions using keras' 'IMDB - Sentiment Analysis" and 
+    "Reuters - Topic classificataions" datasets
+12.) Regression using keras' 'Boston Housing Price" dataset
+13.) Keras Pretrained Models (use for "Transfer" learning, "as is", or
+        do "fine tuning" where we retrain some layers of the original model)
+    Image Classification
+        many, including Xception, VGG16, VGG19, and many more
