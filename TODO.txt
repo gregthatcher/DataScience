@@ -10,6 +10,7 @@
     
 6.) Unsupervised Learning
     a.) KMeans
+    b.) Autoencoder : denoise images (e.g. numbers) https://www.youtube.com/watch?v=lEfrr0Yr684&list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU&index=15
 7.) Finish distributions
 
 8.) Sections for
