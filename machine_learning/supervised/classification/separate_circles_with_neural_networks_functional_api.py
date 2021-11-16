@@ -19,6 +19,7 @@ from keras.layers import Dense
 from keras.optimizers import Adam
 from keras.models import Model
 from keras.layers import Input
+from keras.callbacks import EarlyStopping
 
 # Get rid of tensorflow info and warnings
 # Remove this if you want to see if the GPU
@@ -93,9 +94,12 @@ print(model.summary())
 # Accuracy is what we want to optimize
 model.compile(Adam(lr=0.05), 'binary_crossentropy', metrics=['accuracy'])
 
+# Let's add "early stopping"
+# Note that "val_accuracy" probably makes more sense in the real world
+my_callbacks = [EarlyStopping(monitor="accuracy", patience=5, mode=max)]
 # 4.) Train Model (via fit)
 # Verbose = 1 for progress bar
-model.fit(X_train, y_train, epochs=100, verbose=1)
+model.fit(X_train, y_train, epochs=100000, verbose=1, callbacks=my_callbacks)
 
 
 # 5.) Evaluate Performance

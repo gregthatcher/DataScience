@@ -84,3 +84,5 @@ for row in range(num_rows):
         counter += 1
 
 plt.show()
+
+model.summary()

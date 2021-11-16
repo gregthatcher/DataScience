@@ -37,6 +37,8 @@ from sklearn.model_selection import train_test_split
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
+from keras.callbacks import EarlyStopping
+from tensorflow.keras import callbacks
 
 # Get rid of tensorflow info and warnings
 # Remove this if you want to see if the GPU
@@ -106,9 +108,11 @@ model.add(Dense(1, activation="sigmoid"))
 # Accuracy is what we want to optimize
 model.compile(Adam(lr=0.05), 'binary_crossentropy', metrics=['accuracy'])
 
+# Note that "val_accuracy" probably makes more sense in the real world
+my_callbacks = [EarlyStopping(monitor="accuracy", patience=5, mode=max)]
 # 4.) Train Model (via fit)
 # Verbose = 1 for progress bar
-model.fit(X_train, y_train, epochs=100, verbose=1)
+model.fit(X_train, y_train, epochs=10000, verbose=1, callbacks=my_callbacks)
 
 
 # 5.) Evaluate Performance

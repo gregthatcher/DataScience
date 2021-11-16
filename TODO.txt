@@ -27,3 +27,7 @@
         do "fine tuning" where we retrain some layers of the original model)
     Image Classification
         many, including Xception, VGG16, VGG19, and many more
+14.) Use L1 normalization (and Dropout?) to determine if we can
+    reduce the number of neurons -- similar to how we can use
+    L1 normalization with Linear Regression to remove un-needed
+    (not linearly related) features.

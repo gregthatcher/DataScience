@@ -5,10 +5,15 @@ Lots of ideas from:
 https://medium.com/nerd-for-tech/how-to-train-neural-networks-for-image-classification-part-1-21327fe1cc1
 '''
 # Note that keras is now _part_ of TensorFlow
+# We have the option to just install TensorFlow, or install Keras
+# separately, and use the "api" to access TensorFlow or ??
 from tensorflow import keras
 import matplotlib.pyplot as plt
+import matplotlib.image as img
 import numpy as np
 import pandas as pd
+from tensorflow.keras import callbacks
+from keras.utils import plot_model
 
 MODEL_PATH = "./machine_learning/supervised/classification/image_processing/"\
     "mnist_fashion/saved_models/keras_clothes.model"
@@ -52,6 +57,8 @@ X_test = X_test / 255.0
 print("New Min:", X_validation.min())
 print("New Max:", X_validation.max())
 
+# Alternatively, we could use .save_weights() and .load_weights()
+# and then train the model every time (it won't take long after the first time)
 try:
     model = keras.models.load_model(MODEL_PATH)
 except OSError:
@@ -66,17 +73,21 @@ except OSError:
     print("Model Summary:")
     print(model.summary())
 
-    # "sparse_categorical_crossentropy" because we have sparse (distinct) labels
-
+    # "sparse_categorical_crossentropy" because we have sparse (distinct)
+    # labels
     model.compile(loss="sparse_categorical_crossentropy",
                   optimizer="sgd",
                   metrics=["accuracy"])
 
+    my_callbacks = [keras.callbacks.EarlyStopping(
+        monitor="val_accuracy", patience=5, mode=max)]
     # The accuracy shown at each epoch is the percentage correct
     # The loss is the cross-entropy loss
     history = model.fit(X_train,
                         y_train,
-                        epochs=10,
+                        epochs=10000,
+                        callbacks=my_callbacks,
+                        verbose=2,
                         validation_data=(X_validation, y_validation))
 
     model.save(MODEL_PATH)
@@ -89,3 +100,11 @@ except OSError:
 # How good is our model?
 print("Evaluate:")
 model.evaluate(X_test, y_test)
+
+filename = "mnist_model.png"
+model.summary()
+# TODO: Can't get this to work??
+#plot_model(model, to_file=filename,
+#           show_shapes=True, show_layer_names=True)
+#im = img.imread(filename)
+#plt.imshow(im)
