@@ -85,6 +85,7 @@ x = Dense(4, activation="tanh", name="Hidden-2")(x)
 # Output layer
 o = Dense(1, activation="sigmoid", name="Output-Layer")(x)
 model = Model(inputs=inputs, outputs=o)
+# Do I need this print??
 print(model.summary())
 # 3.) Compile Model
 # Minimize cross entropy for a binary.
