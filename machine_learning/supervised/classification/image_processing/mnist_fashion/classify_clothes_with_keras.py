@@ -83,6 +83,8 @@ except OSError:
         monitor="val_accuracy", patience=5, mode=max)]
     # The accuracy shown at each epoch is the percentage correct
     # The loss is the cross-entropy loss
+    # BE SURE TO SHUFFLE DATA BEFORE USING validation_split
+    # see https://www.youtube.com/watch?v=U8Ixc2OLSkQ&list=PLZbbT5o_s2xrwRnXk_yCPtnqqo4_u2YGL&index=7
     history = model.fit(X_train,
                         y_train,
                         epochs=10000,

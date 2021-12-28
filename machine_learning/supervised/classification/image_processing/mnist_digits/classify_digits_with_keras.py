@@ -56,6 +56,8 @@ except OSError:
     model.compile(loss=keras.losses.categorical_crossentropy,
                   optimizer=keras.optimizers.Adam(), metrics=['accuracy'])
 
+    # BE SURE TO SHUFFLE DATA BEFORE USING validation_split
+    # see https://www.youtube.com/watch?v=U8Ixc2OLSkQ&list=PLZbbT5o_s2xrwRnXk_yCPtnqqo4_u2YGL&index=7
     model.fit(train_X, train_Y_one_hot, batch_size=64, epochs=10)
     # Save the model, so we won't have to wait for training next time
     model.save(MODEL_PATH)

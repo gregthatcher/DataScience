@@ -112,6 +112,8 @@ model.compile(Adam(lr=0.05), 'binary_crossentropy', metrics=['accuracy'])
 my_callbacks = [EarlyStopping(monitor="accuracy", patience=5, mode=max)]
 # 4.) Train Model (via fit)
 # Verbose = 1 for progress bar
+# BE SURE TO SHUFFLE DATA BEFORE USING validation_split
+# see https://www.youtube.com/watch?v=U8Ixc2OLSkQ&list=PLZbbT5o_s2xrwRnXk_yCPtnqqo4_u2YGL&index=7
 model.fit(X_train, y_train, epochs=10000, verbose=1, callbacks=my_callbacks)
 
 
