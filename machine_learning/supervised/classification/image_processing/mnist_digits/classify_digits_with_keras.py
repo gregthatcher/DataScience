@@ -77,6 +77,7 @@ fig.suptitle(
 counter = randint(0, test_X.shape[0]-6)
 for row in range(num_rows):
     for column in range(num_columns):
+        # np.argmax gives index of biggest number
         final_prediction = np.argmax(np.round(predictions[counter]))
         correct_value = np.argmax(np.round(test_Y_one_hot[counter]))
         ax[row][column].imshow(test_X[counter], cmap=plt.get_cmap('gray'))

@@ -7,6 +7,7 @@ print(vals)
 
 ratings_dist = np.array([0.05, 0.05, .05, .45, .4])
 print(vals < ratings_dist.cumsum())
+# np.argmax gives index of biggest number
 ratings = 1 + np.argmax(vals < ratings_dist.cumsum(), axis=1)
 print(ratings)
 print(ratings_dist.cumsum())

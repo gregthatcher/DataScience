@@ -34,6 +34,7 @@ import matplotlib.pyplot as plt
 import os
 from sklearn.datasets import make_circles
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
@@ -126,3 +127,10 @@ print(info)
 plot_decision_boundary(model, X, y)
 plt.text(0, 6, info)
 plt.show()
+
+y_infer = model.predict(X)
+y_infer = np.round(y_infer)
+# print(y_infer)
+cm = confusion_matrix(y_true=y, y_pred=y_infer)
+print(cm)
+
