@@ -131,6 +131,8 @@ plt.show()
 y_infer = model.predict(X)
 y_infer = np.round(y_infer)
 # print(y_infer)
+# See https://towardsdatascience.com/understanding-the-confusion-matrix-from-scikit-learn-c51d88929c79
+print("TN", "FP")
+print("FN", "TP")
 cm = confusion_matrix(y_true=y, y_pred=y_infer)
 print(cm)
-
