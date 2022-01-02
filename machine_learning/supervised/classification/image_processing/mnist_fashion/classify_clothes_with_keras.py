@@ -68,7 +68,8 @@ except OSError:
                                     keras.layers.Dense(100, activation="relu"),
                                     keras.layers.Dense(100, activation="relu"),
                                     keras.layers.Dense(100, activation="relu"),
-                                    keras.layers.Dense(10, activation="softmax")])
+                                    keras.layers.Dense(10, activation="softmax"
+                                                       )])
 
     print("Model Summary:")
     print(model.summary())
@@ -106,7 +107,7 @@ model.evaluate(X_test, y_test)
 filename = "mnist_model.png"
 model.summary()
 # TODO: Can't get this to work??
-#plot_model(model, to_file=filename,
+# plot_model(model, to_file=filename,
 #           show_shapes=True, show_layer_names=True)
 #im = img.imread(filename)
-#plt.imshow(im)
+# plt.imshow(im)
