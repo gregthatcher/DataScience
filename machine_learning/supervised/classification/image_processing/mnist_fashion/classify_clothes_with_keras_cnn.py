@@ -25,7 +25,7 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 num_classes = 10
 
 batch_size = 128
-epochs = 200
+epochs = 10000
 
 img_rows, img_cols = 28, 28
 
@@ -68,7 +68,7 @@ model = Sequential()
 # We might also want to try padding="same" (instead of default "valid")
 # so that "image" doesn't shrink after this layer
 # Original demo started with 32, then changed to 64
-model.add(Conv2D(32, kernel_size=(3, 3),
+model.add(Conv2D(64, kernel_size=(3, 3),
                  activation="relu",
                  input_shape=input_shape))
 
