@@ -24,7 +24,7 @@ def remove_old_files(directory):
     for f in files:
         os.remove(f)
 
-def copy_sample_of_species_files(input_glob):
+def copy_sample_of_species_files(input_glob, output_dir):
     all_species_files = glob.glob(DATA_DIRECTORY + input_glob)
     # Let's get 1000 for train, 400 for test, equals 1400 total
     sample_of_species_files = random.sample(all_species_files, 1400)
@@ -33,9 +33,9 @@ def copy_sample_of_species_files(input_glob):
     for file in sample_of_species_files:
         counter += 1
         if counter <= 1000:
-            copy(file, TRAIN_DIRECTORY)
+            copy(file, TRAIN_DIRECTORY+output_dir)
         else:
-            copy(file, VALIDATE_DIRECTORY)
+            copy(file, VALIDATE_DIRECTORY+output_dir)
 
 
 print("Data Directory: ", DATA_DIRECTORY)
@@ -43,8 +43,12 @@ print("Target Directory: ", TARGET_DIRECTORY)
 print("Train Directory: ", TRAIN_DIRECTORY)
 print("Current Working Directory: ", os.getcwd())
 
-remove_old_files(TRAIN_DIRECTORY)
-remove_old_files(VALIDATE_DIRECTORY)
+dogs_subdir = "dogs\\"
+cats_subdir = "cats\\"
+remove_old_files(TRAIN_DIRECTORY+dogs_subdir)
+remove_old_files(TRAIN_DIRECTORY+cats_subdir)
+remove_old_files(VALIDATE_DIRECTORY+dogs_subdir)
+remove_old_files(VALIDATE_DIRECTORY+cats_subdir)
 
-copy_sample_of_species_files("\\dog*")
-copy_sample_of_species_files("\\cat*")
+copy_sample_of_species_files("\\dog*", dogs_subdir)
+copy_sample_of_species_files("\\cat*", cats_subdir)
