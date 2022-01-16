@@ -64,27 +64,29 @@ def display_portions_of_activation_functions(
     second_x = (data_x * weight_2) + bias_2
 
     ax.plot(data_x, activation_function(first_x),
-            label="1st Node Weights")
+            label=f"1st Node Weights * {weight_1} + {bias_1}")
     ax.plot(data_x, activation_function(second_x),
-            label="2nd Node Weights")
+            label=f"2nd Node Weights * {weight_2} + {bias_2}")
+    ax.set_title("First Layer Activations")
     ax.legend()
 
 
 def display_final_sums(
     weight_1, bias_1, weight_2, bias_2, activation_function, ax, data_x,
-    output_weight_1, output_weight_2
+    output_weight_1, output_weight_2, final_bias
 ):
     first_x = (data_x * weight_1) + bias_1
     second_x = (data_x * weight_2) + bias_2
 
     first_part = output_weight_1 * activation_function(first_x)
     ax.plot(data_x, first_part,
-            label="1st Node Weights")
+            label=f"1st Node Activation * {output_weight_1}")
     second_part = output_weight_2 * activation_function(second_x)
     ax.plot(data_x, second_part,
-            label="2nd Node Weights")
-    ax.plot(data_x, first_part + second_part,
-            label="Final Sum")
+            label=f"2nd Node Activation * {output_weight_2}")
+    ax.plot(data_x, first_part + second_part + final_bias,
+            label=f"Final Sum + {final_bias}")
+    ax.set_title("Final Curve Fits Data Points")
     ax.legend()
 
 
@@ -152,11 +154,11 @@ display_portions_of_activation_functions(
 draw_original_points(ax[1][2])
 
 display_final_sums(WEIGHT_1, BIAS_1, WEIGHT_2, BIAS_2, softplus, ax[0][3],
-                   data_x, -1.3, 2.8)
+                   data_x, -1.3, 2.28, -.58)
 draw_original_points(ax[0][3])
 
 display_final_sums(WEIGHT_1, BIAS_1, WEIGHT_2, BIAS_2, relu, ax[1][3],
-                   data_x, -1.3, 2.8)
+                   data_x, -1.3, 2.28, -.58)
 draw_original_points(ax[1][3])
 
 plt.tight_layout()
