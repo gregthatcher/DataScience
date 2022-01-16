@@ -39,7 +39,7 @@ def softmax(X):
 
 # Idea from : https://stackoverflow.com/questions/44230635/avoid-overflow-with-softplus-function-in-python
 # log(1 + exp(x))
-def softplus(x): 
+def softplus(x):
     return np.log1p(np.exp(-np.abs(x))) + np.maximum(x, 0)
 
 
@@ -52,28 +52,50 @@ def draw_activation_part(x, ax, activation_function, weight, bias, title):
     ax.set_title(title)
     height = max(activation_function(x1), activation_function(x2))
     ax.add_patch(
-        Rectangle((x2, 0), abs(x2 - x1), height, facecolor="none",
-                  edgecolor="red")
+        Rectangle((x2, 0), abs(x2 - x1), height, facecolor="none", edgecolor="red")
     )
+
+
+def display_portions_of_activation_functions(
+    weight_1, bias_1, weight_2, bias_2, activation_function, ax, data_x
+):
+    first_x = (data_x * weight_1) + bias_1
+    second_x = (data_x * weight_2) + bias_2
+
+    ax.plot(data_x, activation_function(first_x),
+            label="1st Node Weights")
+    ax.plot(data_x, activation_function(second_x),
+            label="2nd Node Weights")
+    ax.legend()
 
 
 plt.style.use("seaborn")
 
-fig, ax = plt.subplots(4, 2)
+fig, ax = plt.subplots(2, 4, figsize=(14, 10))
 
 fig.suptitle("Bulding a Squiggle with Activation Functions")
 
-x = np.linspace(-32, 5, 101)
+activation_x = np.linspace(-32, 5, 101)
+data_x = np.linspace(0, 1, 101)
 
-draw_activation_part(x, ax[0][0], softplus, WEIGHT_1, BIAS_1, "SoftPlus")
-draw_activation_part(x, ax[1][0], relu, WEIGHT_1, BIAS_1, "Relu")
-draw_activation_part(x, ax[2][0], sigmoid, WEIGHT_1, BIAS_1, "Sigmoid")
-draw_activation_part(x, ax[3][0], softmax, WEIGHT_1, BIAS_1, "Softmax")
+draw_activation_part(activation_x, ax[0][0], softplus, WEIGHT_1, BIAS_1, "SoftPlus")
+draw_activation_part(activation_x, ax[1][0], relu, WEIGHT_1, BIAS_1, "Relu")
+# I don't have weights (from video abvove) for sigmoid or softmax
+# draw_activation_part(x, ax[2][0], sigmoid, WEIGHT#_1, BIAS_1, "Sigmoid")
+# draw_activation_part(x, ax[3][0], softmax, WEIGHT_1, BIAS_1, "Softmax")
 
-draw_activation_part(x, ax[0][1], softplus, WEIGHT_2, BIAS_2, "SoftPlus")
-draw_activation_part(x, ax[1][1], relu, WEIGHT_2, BIAS_2, "Relu")
-draw_activation_part(x, ax[2][1], sigmoid, WEIGHT_2, BIAS_2, "Sigmoid")
-draw_activation_part(x, ax[3][1], softmax, WEIGHT_2, BIAS_2, "Softmax")
+draw_activation_part(activation_x, ax[0][1], softplus, WEIGHT_2, BIAS_2, "SoftPlus")
+draw_activation_part(activation_x, ax[1][1], relu, WEIGHT_2, BIAS_2, "Relu")
+# I don't have weights (from video abvove) for sigmoid or softmax
+# draw_activation_part(x, ax[2][1], sigmoid, WEIGHT_2, BIAS_2, "Sigmoid")
+# draw_activation_part(x, ax[3][1], softmax, WEIGHT_2, BIAS_2, "Softmax")
+
+display_portions_of_activation_functions(
+    WEIGHT_1, BIAS_1, WEIGHT_2, BIAS_2, softplus, ax[0][2], data_x
+)
+display_portions_of_activation_functions(
+    WEIGHT_1, BIAS_1, WEIGHT_2, BIAS_2, relu, ax[1][2], data_x
+)
 
 plt.tight_layout()
 plt.show()
