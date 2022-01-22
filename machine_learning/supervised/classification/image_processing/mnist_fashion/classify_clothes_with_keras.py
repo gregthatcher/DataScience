@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 from tensorflow.keras import callbacks
 from keras.utils import plot_model
+from keras.layers import Dense, Flatten
 
 MODEL_PATH = "./machine_learning/supervised/classification/image_processing/"\
     "mnist_fashion/saved_models/keras_clothes.model"
@@ -63,12 +64,12 @@ try:
     model = keras.models.load_model(MODEL_PATH)
 except OSError:
     # Final layer has 10 nodes as we have 10 classes
-    model = keras.models.Sequential([keras.layers.Flatten(input_shape=[28, 28]),
-                                    keras.layers.Dense(300, activation="relu"),
-                                    keras.layers.Dense(100, activation="relu"),
-                                    keras.layers.Dense(100, activation="relu"),
-                                    keras.layers.Dense(100, activation="relu"),
-                                    keras.layers.Dense(10, activation="softmax"
+    model = keras.models.Sequential([Flatten(input_shape=[28, 28]),
+                                    Dense(300, activation="relu"),
+                                    Dense(100, activation="relu"),
+                                    Dense(100, activation="relu"),
+                                    Dense(100, activation="relu"),
+                                    Dense(10, activation="softmax"
                                                        )])
 
     print("Model Summary:")

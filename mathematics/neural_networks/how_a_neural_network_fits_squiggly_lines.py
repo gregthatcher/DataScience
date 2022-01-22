@@ -14,13 +14,19 @@ import numpy as np
 DOSAGE_START_X = 0.0
 DOSAGE_END_X = 1.0
 
-WEIGHT_1 = -34.4
-BIAS_1 = 2.14
-WEIGHT_2 = -2.52
-BIAS_2 = 1.29
+WEIGHT_1_SOFTMAX = -34.4
+BIAS_1_SOFTMAX = 2.14
+WEIGHT_2_SOFTMAX = -2.52
+BIAS_2_SOFTMAX = 1.29
 
+WEIGHT_1_RELU = 1.7
+BIAS_1_RELU = -0.85
+WEIGHT_2_RELU = 12.6
+BIAS_2_RELU = 0
 
 # max(0,x)
+
+
 def relu(x):
     return np.maximum(0, x)
 
@@ -73,7 +79,7 @@ def display_portions_of_activation_functions(
 
 def display_final_sums(
     weight_1, bias_1, weight_2, bias_2, activation_function, ax, data_x,
-    output_weight_1, output_weight_2, final_bias
+    output_weight_1, output_weight_2, final_bias, use_final_relu = False
 ):
     first_x = (data_x * weight_1) + bias_1
     second_x = (data_x * weight_2) + bias_2
@@ -84,7 +90,11 @@ def display_final_sums(
     second_part = output_weight_2 * activation_function(second_x)
     ax.plot(data_x, second_part,
             label=f"2nd Node Activation * {output_weight_2}")
-    ax.plot(data_x, first_part + second_part + final_bias,
+    final = first_part + second_part + final_bias
+    if use_final_relu:
+        final = relu(final)
+        ax.text(0.2, 1.25, "Using Relu at Output (typical for Relu)")
+    ax.plot(data_x, final,
             label=f"Final Sum + {final_bias}")
     ax.set_title("Final Curve Fits Data Points")
     ax.legend()
@@ -126,17 +136,18 @@ fig.suptitle("Bulding a Squiggle with Activation Functions")
 activation_x = np.linspace(-32, 5, 101)
 data_x = np.linspace(0, 1, 101)
 
-draw_activation_part(activation_x, ax[0][0], softplus, WEIGHT_1, BIAS_1,
+draw_activation_part(activation_x, ax[0][0], softplus, WEIGHT_1_SOFTMAX, BIAS_1_SOFTMAX,
                      "SoftPlus")
-draw_activation_part(activation_x, ax[1][0], relu, WEIGHT_1, BIAS_1, "Relu")
+draw_activation_part(
+    activation_x, ax[1][0], relu, WEIGHT_1_RELU, BIAS_1_RELU, "Relu")
 # I don't have weights (from video abvove) for sigmoid or softmax
 # draw_activation_part(x, ax[2][0], sigmoid, WEIGHT#_1, BIAS_1, "Sigmoid")
 # draw_activation_part(x, ax[3][0], softmax, WEIGHT_1, BIAS_1, "Softmax")
 
-draw_activation_part(activation_x, ax[0][1], softplus, WEIGHT_2, BIAS_2,
+draw_activation_part(activation_x, ax[0][1], softplus, WEIGHT_2_SOFTMAX, BIAS_2_SOFTMAX,
                      "SoftPlus")
 
-draw_activation_part(activation_x, ax[1][1], relu, WEIGHT_2, BIAS_2,
+draw_activation_part(activation_x, ax[1][1], relu, WEIGHT_2_RELU, BIAS_2_RELU,
                      "Relu")
 
 # I don't have weights (from video abvove) for sigmoid or softmax
@@ -144,21 +155,32 @@ draw_activation_part(activation_x, ax[1][1], relu, WEIGHT_2, BIAS_2,
 # draw_activation_part(x, ax[3][1], softmax, WEIGHT_2, BIAS_2, "Softmax")
 
 display_portions_of_activation_functions(
-    WEIGHT_1, BIAS_1, WEIGHT_2, BIAS_2, softplus, ax[0][2], data_x
+    WEIGHT_1_SOFTMAX, BIAS_1_SOFTMAX, WEIGHT_2_SOFTMAX, BIAS_2_SOFTMAX, softplus, ax[
+        0][2], data_x
 )
 draw_original_points(ax[0][2])
 
 display_portions_of_activation_functions(
-    WEIGHT_1, BIAS_1, WEIGHT_2, BIAS_2, relu, ax[1][2], data_x
+    WEIGHT_1_RELU, BIAS_1_RELU, WEIGHT_2_RELU, BIAS_2_RELU, relu,
+    ax[1][2], data_x
 )
 draw_original_points(ax[1][2])
+ax[1][2].set_xlim(0-0.1, 1+0.1)
+ax[1][2].set_ylim(-0.1, 2 + 0.1)
 
-display_final_sums(WEIGHT_1, BIAS_1, WEIGHT_2, BIAS_2, softplus, ax[0][3],
+display_final_sums(WEIGHT_1_SOFTMAX, BIAS_1_SOFTMAX, WEIGHT_2_SOFTMAX,
+                   BIAS_2_SOFTMAX, softplus, ax[0][3],
                    data_x, -1.3, 2.28, -.58)
 draw_original_points(ax[0][3])
+ax[0][3].set_xlim(0-0.1, 1+0.1)
+ax[0][3].set_ylim(-0.1, 2 + 0.1)
 
-display_final_sums(WEIGHT_1, BIAS_1, WEIGHT_2, BIAS_2, relu, ax[1][3],
-                   data_x, -1.3, 2.28, -.58)
+display_final_sums(WEIGHT_1_RELU, BIAS_1_RELU, WEIGHT_2_RELU,
+                   BIAS_2_RELU, relu, ax[1][3],
+                   data_x, -40.8, 2.7, -16, True)
+ax[1][3].set_xlim(0-0.1, 1+0.1)
+ax[1][3].set_ylim(-0.1, 2 + 0.1)
+
 draw_original_points(ax[1][3])
 
 plt.tight_layout()
