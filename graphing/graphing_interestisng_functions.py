@@ -26,12 +26,14 @@ ax[1][0].set_title("y = exp(x)")
 ax[1][1].plot(x, np.power(10, x))
 ax[1][1].set_title("y = 10^x")
 
+# Surprise described by https://www.youtube.com/watch?v=YtebGVx-Fxw&t=675s
 ax[1][2].plot(x, -np.log(x))
-ax[1][2].set_title("y = -ln(x)")
+ax[1][2].set_title("y = -ln(x) (the 'surprise')")
 ax[1][2].axhline(y=0, c="r", linestyle="--")
 
+# Surprise described by https://www.youtube.com/watch?v=YtebGVx-Fxw&t=675s
 ax[1][3].plot(x, -np.log10(x))
-ax[1][3].set_title("y = -log10(x)")
+ax[1][3].set_title("y = -log10(x) (the 'surprise')")
 ax[1][3].axhline(y=0, c="r", linestyle="--")
 
 ax[2][0].plot(x, 1/x)
