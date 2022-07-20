@@ -6,7 +6,6 @@ Use pre-trained "Inception model" to classify dogs and cats
 Data from https://www.kaggle.com/c/dogs-vs-cats-redux-kernels-edition/data
 '''
 
-import glob
 import matplotlib.pyplot as plt
 # InceptionV3 is the pre-trained model we will "transfer" from
 from keras.applications.inception_v3 import InceptionV3, preprocess_input
@@ -85,7 +84,7 @@ train_generator = train_image_gen.flow_from_directory(
 
 # Connect image generator to our _validation_ source images
 # The image generator will alter these images
-train_generator = train_image_gen.flow_from_directory(
+validation_generator = train_image_gen.flow_from_directory(
     validate_dir,
     target_size=(IMAGE_WIDTH, IMAGE_HEIGHT),
     batch_size=BATCH_SIZE,
@@ -93,7 +92,18 @@ train_generator = train_image_gen.flow_from_directory(
 )
 
 # include_top=False means exclude final Fully Connected (FC) layer
+# Get model from "imagenet" competition
 inceptionV3_base_model = InceptionV3(weights="imagenet", include_top=False)
 # FC = "Fully Connected"
 print("Inception v3 basd model without last Fully Connected layer (FC) loaded")
 
+x = inceptionV3_base_model.output
+x = GlobalAveragePooling2D()(x)
+# New FC layer, random init
+x = Dense(NUMBER_FC_NEURONS, activation="relu")(x)
+# New softmax layer
+predictions = Dense(num_classes, activation="softmax")(x)
+
+model = Model(inputs=inceptionV3_base_model.input, outputs=predictions)
+
+print(model.summary())

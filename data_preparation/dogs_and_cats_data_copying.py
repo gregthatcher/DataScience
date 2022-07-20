@@ -4,8 +4,8 @@ Data for "transfer learning demo" from https://app.pluralsight.com/course-player
 We have copied train.zip data from https://www.kaggle.com/c/dogs-vs-cats-redux-kernels-edition/data?select=train.zip
 into our downloads directory
 
-Per instructions, we want to copy 1000 cat images and 1000 dog images to the "train" folder,
-and 400 cat images and 400 dog images to the "validate" folder
+Per instructions, we want to copy 1000 cat images and 1000 dog images to the
+"train" folder, and 400 cat images and 400 dog images to the "validate" folder
 '''
 
 import glob
@@ -13,7 +13,9 @@ import os
 import random
 from shutil import copy
 
-DATA_DIRECTORY = "C:\\Users\\greg\\Downloads\\dogs-vs-cats-redux-kernels-edition\\train\\train"
+DATA_DIRECTORY = ("C:\\Users\\greg\\Downloads\\"
+                  "dogs-vs-cats-redux-kernels-edition\\train\\train")
+
 TARGET_DIRECTORY = os.path.abspath(".\\data\\raw_data\\dogs_and_cats")
 TRAIN_DIRECTORY = TARGET_DIRECTORY + "\\train\\"
 VALIDATE_DIRECTORY = TARGET_DIRECTORY + "\\validate\\"
@@ -23,6 +25,7 @@ def remove_old_files(directory):
     files = glob.glob(directory + "*")
     for f in files:
         os.remove(f)
+
 
 def copy_sample_of_species_files(input_glob, output_dir):
     all_species_files = glob.glob(DATA_DIRECTORY + input_glob)
