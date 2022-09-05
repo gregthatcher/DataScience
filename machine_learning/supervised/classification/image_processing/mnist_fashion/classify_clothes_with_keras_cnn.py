@@ -97,7 +97,8 @@ model.add(MaxPooling2D(pool_size=(2, 2)))
 # normal neural network stuff to categorize the pictures
 # First, convert 2D images into 1D feature vector
 model.add(Flatten())
-
+# TODO : Consider weight initialization
+# See https://www.youtube.com/watch?v=8krd5qKVw-Q&list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU&index=31
 model.add(Dense(128, activation="relu"))
 # Prevent overfitting
 model.add(Dropout(0.5))

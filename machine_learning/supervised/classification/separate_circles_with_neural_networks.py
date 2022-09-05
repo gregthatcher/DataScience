@@ -97,6 +97,8 @@ model = Sequential()
 # In this simple case, we only add one layer (first parameter),
 # and use the sigmoid activation to return 0 or 1
 # input shape is a one dimensional array of 2 elements
+# TODO : Consider weight initialization
+# See https://www.youtube.com/watch?v=8krd5qKVw-Q&list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU&index=31
 model.add(Dense(4, activation="tanh", input_shape=(2,)))
 model.add(Dense(4, activation="tanh"))
 model.add(Dense(1, activation="sigmoid"))

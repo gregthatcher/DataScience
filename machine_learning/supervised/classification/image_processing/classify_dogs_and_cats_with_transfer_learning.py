@@ -100,6 +100,8 @@ print("Inception v3 basd model without last Fully Connected layer (FC) loaded")
 x = inceptionV3_base_model.output
 x = GlobalAveragePooling2D()(x)
 # New FC layer, random init
+# TODO : Consider weight initialization
+# See https://www.youtube.com/watch?v=8krd5qKVw-Q&list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU&index=31
 x = Dense(NUMBER_FC_NEURONS, activation="relu")(x)
 # New softmax layer
 predictions = Dense(num_classes, activation="softmax")(x)

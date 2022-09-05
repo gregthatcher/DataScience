@@ -81,6 +81,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 # New, Functional API way
 inputs = Input(shape=(2,))
 # Hidden layers
+# TODO : Consider weight initialization
+# See https://www.youtube.com/watch?v=8krd5qKVw-Q&list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU&index=31
 x = Dense(4, activation="tanh", name="Hidden-1")(inputs)
 x = Dense(4, activation="tanh", name="Hidden-2")(x)
 # Output layer

@@ -64,6 +64,8 @@ try:
     model = keras.models.load_model(MODEL_PATH)
 except OSError:
     # Final layer has 10 nodes as we have 10 classes
+    # TODO: Consider using weight initialization
+    # See https://www.youtube.com/watch?v=8krd5qKVw-Q&list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU&index=31
     model = keras.models.Sequential([Flatten(input_shape=[28, 28]),
                                     Dense(300, activation="relu"),
                                     Dense(100, activation="relu"),
