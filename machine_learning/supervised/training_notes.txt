@@ -1,0 +1,22 @@
+Overfitting (model is unable to generalize to new data):
+    Check if validation data accuracy is worse than train data accuracy.
+    Check if test data accuracy is worse than train data accuracy.
+
+    Mitigate by:
+        1.) Adding more (rows of) data
+            a.) Data Augmentation
+                Create additional data by modifying old data
+                (e.g. flipping, rotating, cropping images)
+        2.) Reduce complexity of model
+            (e.g. reduce # of layers or # of neurons)
+        3.) (Increase) Dropout (Regularization)
+
+Underfitting:
+    training accuracy is low (loss is high)
+    1.) Add more features to training set (if we can)
+    2.) Increase complexity of model
+        (e.g. more neurons or more layers)
+    3.) Reduce Dropout (Regularization)
+        a good indicator for this is if training metrics are worse 
+        than validation metrics.
+
