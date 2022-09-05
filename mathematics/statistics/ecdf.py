@@ -18,10 +18,11 @@ def ecdf(data):
     return x, y
 
 
-y = np.random.normal(0, 1, size=2000)
+if __name__ == "__main__":
+    y = np.random.normal(0, 1, size=2000)
 
-x, y = ecdf(y)
-plt.plot(x, y)
-plt.ylabel("ECDF")
+    x, y = ecdf(y)
+    plt.plot(x, y)
+    plt.ylabel("ECDF")
 
-plt.show()
+    plt.show()
